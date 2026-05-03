@@ -14,10 +14,11 @@ export default async function AdminLayout({ children, params }: AdminLayoutProps
   const locale = ensureLocale(localeParam);
   const dictionary = getDictionary(locale);
 
-  return (
-    <Container maxWidth="xl" sx={{ py: 2 }}>
-      <AdminNav locale={locale} dictionary={dictionary} />
-      {children}
-    </Container>
-  );
+  // return (
+  //   <Container maxWidth="xl" sx={{ py: 2 }}>
+  //     <AdminNav locale={locale} dictionary={dictionary} />
+  //     {children}
+  //   </Container>
+  // );
+  return null;
 }
