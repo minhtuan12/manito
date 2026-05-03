@@ -440,11 +440,11 @@ export function SiteHeader({
               icon: <UserRound size={18} />,
               label: "account",
             },
-            {
-              href: `/${locale}/admin`,
-              icon: <Shield size={18} />,
-              label: "admin",
-            },
+            // {
+            //   href: `/${locale}/admin`,
+            //   icon: <Shield size={18} />,
+            //   label: "admin",
+            // },
           ].map(({ href, icon, label }) => (
             href ? <Button
               key={label}
