@@ -1,0 +1,22 @@
+# Source Audit
+
+- Source URL: `https://manitosilk.com/`
+- Crawl date: `2026-04-26`
+- Observed source stack:
+  - WordPress `6.9.4`
+  - WooCommerce `10.7.0`
+  - Woodmart theme `7.2.4`
+  - WPBakery + Slider Revolution
+- Observed plugin/features:
+  - Loyalty, wishlist, promo popup, currency switcher, ajax search
+  - Cart fragments and WooCommerce AJAX
+- Typography detected:
+  - `Savoy Caps`
+  - `Optima` weights 400/500/600/900
+- Accent color detected in runtime config:
+  - `#d7d4c8`
+- Preflight status:
+  - Authorization: confirmed by user
+  - Source accessibility: publicly retrievable
+  - Runtime completeness: partial dynamic behavior requires approximation
+  - Asset rights mode: user-approved original assets

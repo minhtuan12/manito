@@ -1,0 +1,15 @@
+* {
+    box-sizing: border-box;
+}
+
+.MuiCheckbox-sizeSmall {
+    padding: 0 !important;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background: #faf9f6;
+    font-family: var(--font-savoycaps), Arial, Helvetica, sans-serif;
+}

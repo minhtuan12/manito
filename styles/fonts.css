@@ -1,0 +1,10 @@
+/* SavoyCaps Font Family */
+@font-face {
+    font-family: "SavoyCaps";
+    src:
+        url("/fonts/SavoyCaps.woff2") format("woff2"),
+        url("/fonts/SavoyCaps.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
