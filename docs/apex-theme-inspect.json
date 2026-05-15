@@ -1,0 +1,200 @@
+{
+  "summary": {
+    "tag_counts_top": [
+      [
+        "path",
+        181
+      ],
+      [
+        "div",
+        151
+      ],
+      [
+        "span",
+        77
+      ],
+      [
+        "svg",
+        76
+      ],
+      [
+        "a",
+        49
+      ],
+      [
+        "script",
+        42
+      ],
+      [
+        "circle",
+        23
+      ],
+      [
+        "button",
+        21
+      ],
+      [
+        "rect",
+        14
+      ],
+      [
+        "p",
+        10
+      ],
+      [
+        "link",
+        6
+      ],
+      [
+        "template",
+        5
+      ],
+      [
+        "meta",
+        4
+      ],
+      [
+        "line",
+        3
+      ],
+      [
+        "aside",
+        2
+      ],
+      [
+        "nav",
+        2
+      ],
+      [
+        "polyline",
+        2
+      ],
+      [
+        "html",
+        1
+      ],
+      [
+        "head",
+        1
+      ],
+      [
+        "title",
+        1
+      ]
+    ],
+    "link_count": 49,
+    "script_count": 27,
+    "image_count": 0,
+    "stylesheet_count": 2,
+    "inline_style_block_count": 0,
+    "inline_style_attr_count": 13
+  },
+  "layout_hints": {
+    "has_header": true,
+    "has_nav": true,
+    "has_main": true,
+    "has_footer": false,
+    "section_count": 1,
+    "article_count": 0
+  },
+  "assets": {
+    "links": [
+      "https://apex-shadcn.dashboardpack.com/#main-content",
+      "https://apex-shadcn.dashboardpack.com/",
+      "https://apex-shadcn.dashboardpack.com/analytics",
+      "https://apex-shadcn.dashboardpack.com/ecommerce",
+      "https://apex-shadcn.dashboardpack.com/crm",
+      "https://apex-shadcn.dashboardpack.com/saas",
+      "https://apex-shadcn.dashboardpack.com/charts",
+      "https://apex-shadcn.dashboardpack.com/orders",
+      "https://apex-shadcn.dashboardpack.com/products",
+      "https://apex-shadcn.dashboardpack.com/customers",
+      "https://apex-shadcn.dashboardpack.com/invoices",
+      "https://apex-shadcn.dashboardpack.com/mail",
+      "https://apex-shadcn.dashboardpack.com/chat",
+      "https://apex-shadcn.dashboardpack.com/files",
+      "https://apex-shadcn.dashboardpack.com/kanban",
+      "https://apex-shadcn.dashboardpack.com/calendar",
+      "https://apex-shadcn.dashboardpack.com/wizard",
+      "https://apex-shadcn.dashboardpack.com/forms",
+      "https://apex-shadcn.dashboardpack.com/billing",
+      "https://apex-shadcn.dashboardpack.com/users",
+      "https://apex-shadcn.dashboardpack.com/notifications",
+      "https://apex-shadcn.dashboardpack.com/settings",
+      "https://apex-shadcn.dashboardpack.com/support",
+      "https://apex-shadcn.dashboardpack.com/docs",
+      "https://apex-shadcn.dashboardpack.com/profile",
+      "https://apex-shadcn.dashboardpack.com/",
+      "https://apex-shadcn.dashboardpack.com/analytics",
+      "https://apex-shadcn.dashboardpack.com/ecommerce",
+      "https://apex-shadcn.dashboardpack.com/crm",
+      "https://apex-shadcn.dashboardpack.com/saas",
+      "https://apex-shadcn.dashboardpack.com/charts",
+      "https://apex-shadcn.dashboardpack.com/orders",
+      "https://apex-shadcn.dashboardpack.com/products",
+      "https://apex-shadcn.dashboardpack.com/customers",
+      "https://apex-shadcn.dashboardpack.com/invoices",
+      "https://apex-shadcn.dashboardpack.com/mail",
+      "https://apex-shadcn.dashboardpack.com/chat",
+      "https://apex-shadcn.dashboardpack.com/files",
+      "https://apex-shadcn.dashboardpack.com/kanban",
+      "https://apex-shadcn.dashboardpack.com/calendar",
+      "https://apex-shadcn.dashboardpack.com/wizard",
+      "https://apex-shadcn.dashboardpack.com/forms",
+      "https://apex-shadcn.dashboardpack.com/billing",
+      "https://apex-shadcn.dashboardpack.com/users",
+      "https://apex-shadcn.dashboardpack.com/notifications",
+      "https://apex-shadcn.dashboardpack.com/settings",
+      "https://apex-shadcn.dashboardpack.com/support",
+      "https://apex-shadcn.dashboardpack.com/docs",
+      "https://apex-shadcn.dashboardpack.com/profile"
+    ],
+    "scripts": [
+      "https://apex-shadcn.dashboardpack.com/_next/static/chunks/4bd1b696-e356ca5ba0218e27.js",
+      "https://apex-shadcn.dashboardpack.com/_next/static/chunks/3794-5c6ad112f5aa1467.js",
+      "https://apex-shadcn.dashboardpack.com/_next/static/chunks/main-app-17efed8ac322ee5b.js",
+      "https://apex-shadcn.dashboardpack.com/_next/static/chunks/6609-cb163718e066ee48.js",
+      "https://apex-shadcn.dashboardpack.com/_next/static/chunks/app/layout-20692c0255e0f32e.js",
+      "https://apex-shadcn.dashboardpack.com/_next/static/chunks/9055-8744da96081dcd99.js",
+      "https://apex-shadcn.dashboardpack.com/_next/static/chunks/app/error-09bf5b8db3221ceb.js",
+      "https://apex-shadcn.dashboardpack.com/_next/static/chunks/8500-f62a38ff68ab7f42.js",
+      "https://apex-shadcn.dashboardpack.com/_next/static/chunks/app/(auth)/layout-3f97209e6ff8fd1d.js",
+      "https://apex-shadcn.dashboardpack.com/_next/static/chunks/1395-036e557a5ee7b382.js",
+      "https://apex-shadcn.dashboardpack.com/_next/static/chunks/7188-971e3b9d465e3b19.js",
+      "https://apex-shadcn.dashboardpack.com/_next/static/chunks/878-9c07beb9efafa5c9.js",
+      "https://apex-shadcn.dashboardpack.com/_next/static/chunks/9854-276ca09e46366008.js",
+      "https://apex-shadcn.dashboardpack.com/_next/static/chunks/7413-b980c8573c6d4cd6.js",
+      "https://apex-shadcn.dashboardpack.com/_next/static/chunks/7833-51156f7f9e9c2f84.js",
+      "https://apex-shadcn.dashboardpack.com/_next/static/chunks/8221-6bbf28b3a5e0ccfa.js",
+      "https://apex-shadcn.dashboardpack.com/_next/static/chunks/5686-ce1413fae43e78c1.js",
+      "https://apex-shadcn.dashboardpack.com/_next/static/chunks/6400-01b49b584cfef08b.js",
+      "https://apex-shadcn.dashboardpack.com/_next/static/chunks/app/(dashboard)/layout-9eeb8e61d3ab7765.js",
+      "https://apex-shadcn.dashboardpack.com/_next/static/chunks/app/(dashboard)/error-7c02a24e050589ef.js",
+      "https://apex-shadcn.dashboardpack.com/_next/static/chunks/965-6f0ac047ee753b01.js",
+      "https://apex-shadcn.dashboardpack.com/_next/static/chunks/6702-48b90b64ccd2bf5b.js",
+      "https://apex-shadcn.dashboardpack.com/_next/static/chunks/9705-0a404a9b4aecd60c.js",
+      "https://apex-shadcn.dashboardpack.com/_next/static/chunks/app/(dashboard)/page-3d9aacccf7db895e.js",
+      "https://apex-shadcn.dashboardpack.com/_next/static/chunks/polyfills-42372ed130431b0a.js",
+      "https://apex-shadcn.dashboardpack.com/_next/static/chunks/webpack-00a59187288ec8a2.js",
+      "https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516"
+    ],
+    "images": [],
+    "stylesheets": [
+      "https://apex-shadcn.dashboardpack.com/_next/static/css/d13c00c6a1dc94c1.css",
+      "https://apex-shadcn.dashboardpack.com/_next/static/css/fc1ddcc16652ad2e.css"
+    ],
+    "css_referenced_assets": []
+  },
+  "design_tokens": {
+    "colors": [],
+    "font_families": []
+  },
+  "risk_signals": {
+    "auth_or_access_hints": true,
+    "spa_signals": {
+      "bundle_markers": true,
+      "likely_root_shell": false,
+      "script_count": 27
+    }
+  }
+}

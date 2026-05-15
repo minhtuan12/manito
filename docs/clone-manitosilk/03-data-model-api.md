@@ -10,7 +10,7 @@
 ## Localization rule
 - All visible content is modeled as localized text (EN/VI).
 - Product titles/descriptions/details are bilingual.
-- Admin labels and storefront labels are bilingual via dictionaries.
+- Storefront labels are bilingual via dictionaries.
 
 ## API contract
 - `GET /api/products` -> `{ items, total }`

@@ -32,10 +32,10 @@ const discoverItems = [
       vi: "Hướng Đến Tương Lai Bền Vững",
     },
     body: {
-      en: "MANITO is certified by OEKO – TEX STANDARD 100 and MADE IN GREEN. OEKO-TEX STANDARD 100 is one of the world’s best-known labels for textiles tested for harmful substances.",
-      vi: "MANITO đạt chứng nhận OEKO-TEX STANDARD 100 và MADE IN GREEN. OEKO-TEX STANDARD 100 là một trong những nhãn hiệu nổi tiếng nhất thế giới dành cho hàng dệt may được kiểm tra về các chất độc hại.",
+      en: "YAMOPAD is certified by OEKO – TEX STANDARD 100 and MADE IN GREEN. OEKO-TEX STANDARD 100 is one of the world’s best-known labels for textiles tested for harmful substances.",
+      vi: "YAMOPAD đạt chứng nhận OEKO-TEX STANDARD 100 và MADE IN GREEN. OEKO-TEX STANDARD 100 là một trong những nhãn hiệu nổi tiếng nhất thế giới dành cho hàng dệt may được kiểm tra về các chất độc hại.",
     },
-    href: "/inside-manito/",
+    href: "/inside-yamopad/",
     cta: { en: "Discover More", vi: "Khám Phá Thêm" },
   },
   {

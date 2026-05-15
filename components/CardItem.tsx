@@ -9,10 +9,12 @@ export default function CardItem({
 	href,
 	coverImage,
 	title,
+	isNew,
 }: {
 	href: string;
 	coverImage: string | StaticImageData;
 	title: string;
+	isNew: boolean;
 }) {
 	return (
 		<Box
@@ -45,7 +47,7 @@ export default function CardItem({
 					transform: "translateX(0)",
 				},
 			}}
-			height="100%"
+			minHeight={488}
 			position={"relative"}
 			width={'100%'}
 		>
@@ -53,6 +55,7 @@ export default function CardItem({
 				className="cover"
 				src={coverImage}
 				alt={title}
+				fill
 				style={{
 					height: "100%",
 					width: "100%",
@@ -60,24 +63,26 @@ export default function CardItem({
 					transition: "transform 300ms ease",
 				}}
 			/>
-			<Box
-				className="new-badge"
-				top={10}
-				left={0}
-				position={"absolute"}
-				sx={{
-					background: "#ffffff",
-					color: "black",
-					fontWeight: 600,
-					width: "fit-content",
-					px: 2,
-					py: 0.5,
-					fontSize: 12,
-					boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
-				}}
-			>
-				NEW
-			</Box>
+			{
+				isNew && <Box
+					className="new-badge"
+					top={10}
+					left={0}
+					position={"absolute"}
+					sx={{
+						background: "#ffffff",
+						color: "black",
+						fontWeight: 600,
+						width: "fit-content",
+						px: 2,
+						py: 0.5,
+						fontSize: 12,
+						boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+					}}
+				>
+					NEW
+				</Box>
+			}
 			<Box
 				onClick={(e) => {
 					// TODO: Handle favorite action, e.g., toggle favorite state, show toast, etc.

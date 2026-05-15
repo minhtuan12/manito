@@ -1,27 +1,31 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Box, Button, Stack, Typography } from "@mui/material";
-import type { Locale, Product } from "@/types/domain";
+import type { Locale } from "@/types/domain";
+import type { StorefrontProduct } from "@/lib/catalog";
 import type { ReturnTypeGetDictionary } from "@/lib/types-local";
+import { stripHtml } from "@/lib/richText";
 
 type ProductCardProps = {
-  product: Product;
+  product: StorefrontProduct;
   locale: Locale;
   dictionary: ReturnTypeGetDictionary;
 };
 
 export function ProductCard({ product, locale, dictionary }: ProductCardProps) {
+  const shortDescription = stripHtml(product.description[locale]);
+
   return (
     <Box sx={{ display: "grid", gap: 1.5 }}>
       <Box sx={{ position: "relative", aspectRatio: "3 / 4", overflow: "hidden" }}>
-        <Image src={product.image} alt={product.title[locale]} fill style={{ objectFit: "cover" }} />
+        <Image src={product.primaryImage} alt={product.title[locale]} fill style={{ objectFit: "cover" }} />
       </Box>
       <Stack spacing={0.8}>
         <Typography variant="h6" sx={{ fontFamily: "Optima, serif" }}>
           {product.title[locale]}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {product.description[locale]}
+          {shortDescription}
         </Typography>
         <Typography variant="body2">
           {dictionary.common.price}: ${product.priceUsd}

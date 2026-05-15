@@ -4,14 +4,15 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Box, Grid2 as Grid, Typography } from "@mui/material";
-import type { Category, Locale } from "@/types/domain";
+import type { Locale } from "@/types/domain";
+import type { StorefrontCategory } from "@/lib/catalog";
 import type { ReturnTypeGetDictionary } from "@/lib/types-local";
 import { Heart } from "lucide-react";
 import CardItem from "./CardItem";
 
 type CategoryGridProps = {
   locale: Locale;
-  categories: Category[];
+  categories: StorefrontCategory[];
   dictionary: ReturnTypeGetDictionary;
 };
 
@@ -183,7 +184,6 @@ export function CategoryGrid({ locale, categories }: CategoryGridProps) {
         display="flex"
         flexDirection="column"
         pr={{ xs: 2, md: 3 }}
-        py={5.5}
       >
         <Box
           ref={sliderRef}
@@ -220,7 +220,7 @@ export function CategoryGrid({ locale, categories }: CategoryGridProps) {
             >
               <CardItem
                 coverImage={category.coverImage}
-                href={`/${locale}/category/${category.slug}`}
+                href={`/${locale}/category/${category.path}`}
                 title={category.title[locale]}
               />
             </Box>

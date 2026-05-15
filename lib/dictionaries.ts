@@ -12,7 +12,6 @@ export type Dictionary = {
     cart: string;
     wishlist: string;
     account: string;
-    admin: string;
   };
   home: {
     featuredTitle: string;
@@ -28,18 +27,6 @@ export type Dictionary = {
     outOfStock: string;
     language: string;
     productInformation: string;
-  };
-  admin: {
-    title: string;
-    subtitle: string;
-    products: string;
-    categories: string;
-    orders: string;
-    customers: string;
-    content: string;
-    media: string;
-    settings: string;
-    dashboard: string;
   };
   account: {
     title: string;
@@ -70,7 +57,6 @@ const dictionaries: Record<Locale, Dictionary> = {
       cart: "Cart",
       wishlist: "Wishlist",
       account: "My Account",
-      admin: "Admin"
     },
     home: {
       featuredTitle: "Featured Products",
@@ -86,18 +72,6 @@ const dictionaries: Record<Locale, Dictionary> = {
       outOfStock: "Out of stock",
       language: "Language",
       productInformation: "Product Information"
-    },
-    admin: {
-      title: "Admin CMS",
-      subtitle: "Manage catalog, content, and orders in one Next.js workspace.",
-      products: "Products",
-      categories: "Categories",
-      orders: "Orders",
-      customers: "Customers",
-      content: "Content",
-      media: "Media",
-      settings: "Settings",
-      dashboard: "Dashboard"
     },
     account: {
       title: "My Account",
@@ -120,6 +94,7 @@ const dictionaries: Record<Locale, Dictionary> = {
       nameAsc: 'Name: A to Z',
       nameDesc: 'Name: Z to A',
       color: 'Color',
+      common: 'Filters',
     },
   },
   vi: {
@@ -134,7 +109,6 @@ const dictionaries: Record<Locale, Dictionary> = {
       cart: "Giỏ hàng",
       wishlist: "Yêu thích",
       account: "Tài khoản",
-      admin: "Quản trị"
     },
     home: {
       featuredTitle: "Sản Phẩm Nổi Bật",
@@ -150,18 +124,6 @@ const dictionaries: Record<Locale, Dictionary> = {
       outOfStock: "Hết hàng",
       language: "Ngôn ngữ",
       productInformation: "Thông Tin Sản Phẩm"
-    },
-    admin: {
-      title: "CMS Quản Trị",
-      subtitle: "Quản lý danh mục, nội dung và đơn hàng trong cùng một hệ Next.js.",
-      products: "Sản phẩm",
-      categories: "Danh mục",
-      orders: "Đơn hàng",
-      customers: "Khách hàng",
-      content: "Nội dung",
-      media: "Thư viện ảnh",
-      settings: "Cài đặt",
-      dashboard: "Tổng quan"
     },
     account: {
       title: "Tài Khoản",
@@ -184,6 +146,7 @@ const dictionaries: Record<Locale, Dictionary> = {
       nameAsc: 'Tên sản phẩm: A tới Z',
       nameDesc: 'Tên sản phẩm: Z tới A',
       color: 'Màu sắc',
+      common: 'Bộ lọc',
     },
   }
 };

@@ -1,8 +1,9 @@
-# MANITO
+# YAMOPAD
 
-Bilingual storefront + admin scaffold inspired by `https://manitosilk.com/`.
+Bilingual storefront scaffold inspired by `https://manitosilk.com/`.
 
 ## Stack
+
 - Next.js App Router (TypeScript)
 - Material UI
 - Lucide Icons
@@ -10,25 +11,18 @@ Bilingual storefront + admin scaffold inspired by `https://manitosilk.com/`.
 - Next.js API routes (`app/api/*`)
 
 ## Routes
+
 - Storefront:
-  - `/en`, `/vi`
-  - `/[locale]/category/[...slug]`
-  - `/[locale]/products/[slug]`
-  - `/[locale]/cart`
-  - `/[locale]/wishlist`
-  - `/[locale]/my-account`
-  - `/[locale]/search`
-- Admin:
-  - `/[locale]/admin`
-  - `/[locale]/admin/products`
-  - `/[locale]/admin/categories`
-  - `/[locale]/admin/orders`
-  - `/[locale]/admin/customers`
-  - `/[locale]/admin/content`
-  - `/[locale]/admin/media`
-  - `/[locale]/admin/settings`
+    - `/en`, `/vi`
+    - `/[locale]/category/[...slug]`
+    - `/[locale]/products/[slug]`
+    - `/[locale]/cart`
+    - `/[locale]/wishlist`
+    - `/[locale]/my-account`
+    - `/[locale]/search`
 
 ## API
+
 - `GET /api/products`
 - `GET /api/products/:id`
 - `GET /api/categories`
@@ -39,10 +33,12 @@ Bilingual storefront + admin scaffold inspired by `https://manitosilk.com/`.
 - `PATCH /api/orders/:id/status`
 
 ## Run
+
 ```bash
 npm install
 npm run dev
 ```
 
 ## Project memory docs
+
 See `docs/clone-manitosilk/` and `docs/superpowers/plans/`.

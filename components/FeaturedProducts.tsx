@@ -1,22 +1,14 @@
 import { Box, Grid2 as Grid, Typography } from "@mui/material";
-import type { Locale, Product } from "@/types/domain";
+import type { Locale } from "@/types/domain";
+import type { StorefrontCategory, StorefrontProduct } from "@/lib/catalog";
 import type { ReturnTypeGetDictionary } from "@/lib/types-local";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import Link from "next/link";
-import WomenMainImage from "@/assets/images/manitosilk-sweetie.jpg";
-import WomenSubImage from "@/assets/images/manitosilk-sweetie-new-600x731.jpg";
-import MenMainImage from "@/assets/images/manitosilk-new-tropical.jpg";
-import MenSubImage from "@/assets/images/manitosilk-new-tropical-BLUE-600x731.jpg";
-import AccessMainImage from "@/assets/images/Bestie-Gift-Box-600x731.webp";
-import AccessSubImage from "@/assets/images/manitosilk-summer-fruit.jpg";
-import BeddingMainImage from "@/assets/images/manitosilk-bedding-new.jpg";
-import BeddingSubImage from "@/assets/images/manitosilk-bedding-new-catogary-600x731.jpg";
-import KidMainImage from "@/assets/images/MANITO-Kids2.webp";
-import KidSubImage from "@/assets/images/Bestie-Gift-Box-600x731.webp";
 
 type FeaturedProductsProps = {
   locale: Locale;
-  products: Product[];
+  products: StorefrontProduct[];
+  categories: StorefrontCategory[];
   dictionary: ReturnTypeGetDictionary;
 };
 
@@ -25,12 +17,14 @@ function FeaturedCard({
   mainImage,
   subImage,
   cat,
+  href,
   isReverse = false,
 }: {
   locale: string;
-  mainImage: StaticImageData;
-  subImage: StaticImageData;
+  mainImage: string;
+  subImage: string;
   cat: string;
+  href: string;
   isReverse?: boolean;
 }) {
   return (
@@ -59,10 +53,12 @@ function FeaturedCard({
         <Image
           src={subImage}
           alt={cat}
+          width={600}
+          height={731}
           style={{ width: "100%", height: "100%", marginBottom: 20 }}
         />
         <Link
-          href={"#"}
+          href={href}
           style={{
             paddingInline: 40,
             fontSize: 14,
@@ -73,10 +69,10 @@ function FeaturedCard({
             textDecoration: "none",
           }}
         >
-          {locale === 'en' ? "VIEW ALL" : "XEM TẤT CẢ"}
+          {locale === "en" ? "VIEW ALL" : "XEM TẤT CẢ"}
         </Link>
       </Grid>
-      <Box flex={1} position="relative">
+      <Box flex={1} position="relative" minHeight={500}>
         <Image
           src={mainImage}
           alt={cat}
@@ -91,8 +87,29 @@ function FeaturedCard({
 export function FeaturedProducts({
   locale,
   products,
+  categories,
   dictionary,
 }: FeaturedProductsProps) {
+  const sections = categories
+    .map((category) => {
+      const categoryProducts = products.filter((product) =>
+        product.categoryPath === category.path ||
+        product.categoryPath.startsWith(`${category.path}/`),
+      );
+
+      const mainImage = categoryProducts[0]?.primaryImage ?? category.banner;
+      const subImage = categoryProducts[1]?.primaryImage ?? category.coverImage;
+
+      return {
+        id: category.id,
+        href: `/${locale}/category/${category.path}`,
+        label: category.title[locale],
+        mainImage,
+        subImage,
+      };
+    })
+    .filter((section) => !!section.mainImage && !!section.subImage);
+
   return (
     <Box
       sx={{ backgroundColor: "#f2f0e1" }}
@@ -101,38 +118,17 @@ export function FeaturedProducts({
       minHeight={{ xs: "auto", md: 600 }}
       gap={{ xs: 3, md: 0 }}
     >
-      <FeaturedCard
-        locale={locale}
-        cat={locale === 'en' ? "WOMEN" : "NỮ"}
-        mainImage={WomenMainImage}
-        subImage={WomenSubImage}
-      />
-      <FeaturedCard
-        locale={locale}
-        isReverse
-        cat={locale === 'en' ? "MEN" : "NAM"}
-        mainImage={MenMainImage}
-        subImage={MenSubImage}
-      />
-      <FeaturedCard
-        locale={locale}
-        cat={locale === 'en' ? "ACCESSORIES" : "PHỤ KIỆN"}
-        mainImage={AccessSubImage}
-        subImage={AccessMainImage}
-      />
-      <FeaturedCard
-        locale={locale}
-        isReverse
-        cat={locale === 'en' ? "BEDDING" : "BỘ ĐỒ GIƯỜNG"}
-        mainImage={BeddingMainImage}
-        subImage={BeddingSubImage}
-      />
-      <FeaturedCard
-        locale={locale}
-        cat={locale === 'en' ? "KIDS" : "TRẺ EM"}
-        mainImage={KidMainImage}
-        subImage={KidSubImage}
-      />
+      {sections.map((section, index) => (
+        <FeaturedCard
+          key={section.id}
+          locale={locale}
+          cat={section.label}
+          href={section.href}
+          mainImage={section.mainImage}
+          subImage={section.subImage}
+          isReverse={index % 2 === 1}
+        />
+      ))}
     </Box>
   );
 }

@@ -54,7 +54,7 @@ export default async function RegisterPage({ params }: RegisterPageProps) {
 					/>
 
 					<Typography sx={{ fontSize: 16 }}>
-						Sign up and receive 5% Off in MANITO&apos;s Choices reward!
+						Sign up and receive 5% Off in YAMOPAD&apos;s Choices reward!
 					</Typography>
 
 					<FormControlLabel
@@ -69,7 +69,7 @@ export default async function RegisterPage({ params }: RegisterPageProps) {
 								<Link href="/privacy-policy" style={{ color: "inherit", textDecoration: "underline" }}>
 									Privacy Policy
 								</Link>
-								, and that you want to create your MANITO profile.
+								, and that you want to create your YAMOPAD profile.
 							</Typography>
 						}
 						sx={{ alignItems: "flex-start", m: 0 }}
@@ -79,7 +79,7 @@ export default async function RegisterPage({ params }: RegisterPageProps) {
 						control={<Checkbox size="small" />}
 						label={
 							<Typography sx={{ fontSize: 16, ml: 1 }}>
-								I wish to receive updates about MANITO exclusive products, services and activities,
+								I wish to receive updates about YAMOPAD exclusive products, services and activities,
 								through traditional and digital communication methods.
 							</Typography>
 						}
@@ -107,7 +107,7 @@ export default async function RegisterPage({ params }: RegisterPageProps) {
 				<Box display={'flex'} flexDirection={'column'} alignItems={'center'} justifyContent={'center'}>
 					<Typography sx={{ fontSize: 22, fontWeight: 600, mb: 2.5 }}>LOGIN</Typography>
 					<Typography sx={{ whiteSpace: "pre-line", lineHeight: 1.9, fontSize: 16, color: "#343434", textAlign: 'center' }}>
-						A MORE REWARDING WAY TO SHOP: RECEIVE 5% OFF YOUR FIRST MANITO' S CHOICE ORDER EARN 1 POINT ON EVERY $1 YOU SPEND REDEEM POINTS FOR A DISCOUNT
+						A MORE REWARDING WAY TO SHOP: RECEIVE 5% OFF YOUR FIRST YAMOPAD' S CHOICE ORDER EARN 1 POINT ON EVERY $1 YOU SPEND REDEEM POINTS FOR A DISCOUNT
 					</Typography>
 					<Button
 						sx={{ mt: 2, bgcolor: "#d7d4c8", color: 'black', px: 3, py: 1.5 }}

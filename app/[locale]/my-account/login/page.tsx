@@ -55,7 +55,7 @@ export default async function LoginPage({ params }: RegisterPageProps) {
 					<Typography sx={{ textAlign: "center", mb: 2, fontSize: 18, color: "#555" }}>Or</Typography>
 					<Typography sx={{ fontSize: 36, mb: 2.5 }}>Login</Typography>
 					<Typography sx={{ whiteSpace: "pre-line", lineHeight: 1.9, fontSize: 16, color: "#343434" }}>
-						{`A MORE REWARDING WAY TO SHOP:\n\nRECEIVE 5% OFF YOUR FIRST MANITO' S CHOICE ORDER\n\nEARN 1 POINT ON EVERY $1 YOU SPEND\n\nREDEEM POINTS FOR A DISCOUNT`}
+						{`A MORE REWARDING WAY TO SHOP:\n\nRECEIVE 5% OFF YOUR FIRST YAMOPAD' S CHOICE ORDER\n\nEARN 1 POINT ON EVERY $1 YOU SPEND\n\nREDEEM POINTS FOR A DISCOUNT`}
 					</Typography>
 					<Button
 						variant="contained"

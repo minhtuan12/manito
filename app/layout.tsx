@@ -2,27 +2,18 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Providers } from "@/components/providers";
 import "@/app/globals.css";
+import { Cormorant } from "next/font/google";
 import localFont from "next/font/local";
 
 export const metadata: Metadata = {
-  title: "MANITO Official Store",
+  title: "YAMOPAD Official Store",
   description:
-    "Bilingual EN/VI MANITO-inspired storefront",
+    "Bilingual EN/VI YAMOPAD-inspired storefront",
 };
 
-const savoyCaps = localFont({
-  src: [
-    {
-      path: "../public/fonts/SavoyCaps.woff2",
-      weight: "400",
-      style: "normal",
-    },
-    {
-      path: "../public/fonts/SavoyCaps.woff",
-      weight: "400",
-      style: "normal",
-    },
-  ],
+const cormorant = Cormorant({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-savoycaps",
   display: "swap",
 });
@@ -30,23 +21,8 @@ const savoyCaps = localFont({
 const optima = localFont({
   src: [
     {
-      path: "../public/fonts/Optima-400.woff2",
+      path: "../public/fonts/Optima-Regular.ttf",
       weight: "400",
-      style: "normal",
-    },
-    {
-      path: "../public/fonts/Optima-500.woff2",
-      weight: "500",
-      style: "normal",
-    },
-    {
-      path: "../public/fonts/Optima-600.woff",
-      weight: "600",
-      style: "normal",
-    },
-    {
-      path: "../public/fonts/Optima-900.woff2",
-      weight: "900",
       style: "normal",
     },
   ],
@@ -56,7 +32,7 @@ const optima = localFont({
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={`${savoyCaps.variable} ${optima.variable}`}>
+    <html lang="en" className={`${cormorant.variable} ${optima.variable}`}>
       <body>
         <Providers>{children}</Providers>
       </body>

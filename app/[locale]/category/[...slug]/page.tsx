@@ -1,13 +1,15 @@
 import { notFound } from "next/navigation";
-import { Grid2 as Grid, Grid2, Typography } from "@mui/material";
+import { Box, Grid2 as Grid, Grid2, Typography } from "@mui/material";
 import { ensureLocale } from "@/lib/i18n";
-import { categories } from "@/data/categories";
-import { products } from "@/data/products";
 import { SectionTitle } from "@/components/SectionTitle";
 import Image from "next/image";
 import Filter from "../Filter";
 import CardItem from "@/components/CardItem";
 import { Breadcrumb } from "@/components/Breadcrumb";
+import {
+  getStorefrontCategoryAncestorsBySlug,
+  getStorefrontProductsForCategoryPath,
+} from "@/lib/storefront-data";
 
 type CategoryPageProps = {
   params: Promise<{ locale: string; slug: string[] }>;
@@ -16,24 +18,28 @@ type CategoryPageProps = {
 export default async function CategoryPage({ params }: CategoryPageProps) {
   const { locale: localeParam, slug } = await params;
   const locale = ensureLocale(localeParam);
-  const categorySlug = slug[slug.length - 1];
-  const category = categories.find((item) => item.slug === categorySlug);
+  const { category, products } = await getStorefrontProductsForCategoryPath(slug);
 
   if (!category) {
     notFound();
   }
 
-  const filtered = products.filter((item) => item.categorySlug === category.slug);
+  const ancestors = await getStorefrontCategoryAncestorsBySlug(category.slug);
 
   return (
     <>
       <SectionTitle title={category.title[locale]} subtitle={category.description[locale]} />
-      <Image src={category.banner} style={{ width: "100%", height: "auto" }} alt={category.slug} />
-      <Grid2 px={2} pt={5}>
+      <Box position={'relative'} width={'100%'} minHeight={700} display={'flex'} justifyContent={'center'} alignItems={'center'}>
+        <Image src={category.banner} fill style={{ position: 'absolute' }} alt={category.slug} />
+      </Box>
+      <Grid2 px={22} pt={5}>
         <Breadcrumb
           items={[
             { href: `/${locale}`, label: locale === "en" ? "Home" : "Trang chủ" },
-            { label: category.title[locale] },
+            ...ancestors.map((item) => ({
+              href: `/${locale}/category/${item.path}`,
+              label: item.title[locale],
+            })),
           ]}
         />
         <Filter />
@@ -70,20 +76,21 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             {category.title[locale]}
           </Typography>
           <Grid2 container size={12} mt={2}>
-            {filtered.map((product) => (
+            {products.map((product) => (
               <Grid
-                key={product.id}
+                key={product._id}
                 size={{ xs: 12, sm: 6, md: 3 }}
                 display="flex"
                 flexDirection="column"
                 alignItems="center"
               >
                 <CardItem
-                  coverImage={product.image}
-                  href={`/${locale}/products/${product.slug}`}
-                  title={product.title[locale]}
+                  coverImage={product?.images[0]}
+                  href={`/${locale}/products/${product?.slug}`}
+                  title={product?.title[locale]}
+                  isNew={product?.isNew}
                 />
-                <Typography mt={2} mb={0.5} color="#7A7D81" fontWeight={600} fontSize={16}>
+                <Typography mt={2} mb={0.5} color="#7A7D81" fontWeight={900} fontSize={20}>
                   {product.title[locale]}
                 </Typography>
                 <Typography color="#7A7D81" fontWeight={400} fontSize={16} variant="subtitle1">
@@ -97,4 +104,3 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     </>
   );
 }
-

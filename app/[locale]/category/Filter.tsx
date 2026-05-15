@@ -28,7 +28,7 @@ export default function Filter() {
 				onClick={() => setOpenFilter(!openFilter)}
 			>
 				<SlidersHorizontal size={16} />
-				<Typography fontWeight={600}>Filters</Typography>
+				<Typography fontWeight={600} fontSize={20}>{t('filter.common')}</Typography>
 			</Grid2>
 			<Grid2
 				sx={{

@@ -1,5 +1,3 @@
-import { StaticImageData } from "next/image";
-
 export type Locale = "en" | "vi";
 
 export type LocalizedText = {
@@ -7,32 +5,46 @@ export type LocalizedText = {
   vi: string;
 };
 
+export type ProductProperty = {
+  slug: string;
+  name: string;
+  values: string[];
+};
+
 export type Category = {
-  id: string;
+  _id: string;
+  parentId: string | null;
   slug: string;
   title: LocalizedText;
   description: LocalizedText;
-  coverImage: StaticImageData;
-  banner: StaticImageData;
+  coverImage: string;
+  banner: string;
+  isDeleted?: boolean;
+  deletedAt?: string;
+  createdAt?: string;
+  updatedAt?: string;
 };
 
 export type Product = {
-  id: string;
+  _id: string;
   slug: string;
   title: LocalizedText;
   description: LocalizedText;
-  details: LocalizedText;
   categorySlug: string;
   priceUsd: number;
-  image: StaticImageData;
-  colors: StaticImageData[]
-};
-
-export type SiteContent = {
-  brand: LocalizedText;
-  heroTitle: LocalizedText;
-  heroSubtitle: LocalizedText;
-  heroCtaPrimary: LocalizedText;
-  heroCtaSecondary: LocalizedText;
-  footerTagline: LocalizedText;
+  stock: number;
+  images: string[];
+  colors: string[];
+  properties: ProductProperty[];
+  details?: LocalizedText;
+  materialsAndCare?: LocalizedText;
+  shipping?: LocalizedText;
+  returns?: LocalizedText;
+  giftPackaging?: LocalizedText;
+  isNew: boolean;
+  salePercent: number;
+  isDeleted?: boolean;
+  deletedAt?: string;
+  createdAt?: string;
+  updatedAt?: string;
 };

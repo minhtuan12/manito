@@ -12,7 +12,6 @@ import JCB from "@/assets/images/jcb-w.svg";
 
 type SiteFooterProps = {
   locale: Locale;
-  tagline?: string;
 };
 
 type FooterLink = {
@@ -31,8 +30,8 @@ const t = {
     vi: "Đăng ký nhận bản tin của chúng tôi",
   },
   sale: {
-    en: "5% off your first order for selected products in MANITO's CHOICE.",
-    vi: "Giảm 5% cho đơn hàng đầu tiên với các sản phẩm trong MANITO's CHOICE.",
+    en: "5% off your first order for selected products in YAMOPAD's CHOICE.",
+    vi: "Giảm 5% cho đơn hàng đầu tiên với các sản phẩm trong YAMOPAD's CHOICE.",
   },
   desc: {
     en: "Be the first to know about our new product launches and gain private access on special occasions.",
@@ -47,16 +46,16 @@ const t = {
     vi: "ĐĂNG KÝ",
   },
   policy: {
-    en: "*I acknowledge that my email address will be processed by MANITO Trading Ltd. in accordance with the Privacy Policy.",
-    vi: "*Tôi đồng ý để MANITO Trading Ltd. xử lý địa chỉ email của tôi theo Chính sách Bảo mật.",
+    en: "*I acknowledge that my email address will be processed by YAMOPAD Trading Ltd. in accordance with the Privacy Policy.",
+    vi: "*Tôi đồng ý để YAMOPAD Trading Ltd. xử lý địa chỉ email của tôi theo Chính sách Bảo mật.",
   },
   follow: {
     en: "Follow Us",
     vi: "Theo dõi chúng tôi",
   },
   copyright: {
-    en: "MANITO Official Online Store North America",
-    vi: "Cửa hàng trực tuyến chính thức MANITO khu vực Bắc Mỹ",
+    en: "YAMOPAD Official Online Store North America",
+    vi: "Cửa hàng trực tuyến chính thức YAMOPAD khu vực Bắc Mỹ",
   },
 };
 
@@ -65,14 +64,14 @@ const footerGroups: FooterGroup[] = [
     title: { en: "Get In Touch", vi: "Liên hệ" },
     links: [
       { label: { en: "FAQ", vi: "Câu hỏi thường gặp" }, href: "/faq" },
-      { label: { en: "MANITO Loyalty Club", vi: "CLB Khách hàng thân thiết MANITO" }, href: "/manito-loyalty-club" },
+      { label: { en: "YAMOPAD Loyalty Club", vi: "CLB Khách hàng thân thiết YAMOPAD" }, href: "/yamopad-loyalty-club" },
       { label: { en: "Contact Us", vi: "Liên hệ chúng tôi" }, href: "/contact-us" },
     ],
   },
   {
-    title: { en: "About MANITO", vi: "Về MANITO" },
+    title: { en: "About YAMOPAD", vi: "Về YAMOPAD" },
     links: [
-      { label: { en: "Inside MANITO", vi: "Câu chuyện MANITO" }, href: "/inside-manito" },
+      { label: { en: "Inside YAMOPAD", vi: "Câu chuyện YAMOPAD" }, href: "/inside-yamopad" },
       { label: { en: "Soft Light", vi: "Soft Light" }, href: "/soft-light" },
       { label: { en: "Splendid Silk Moments", vi: "Splendid Silk Moments" }, href: "/splendid-silk-moments" },
     ],
@@ -103,11 +102,11 @@ const footerGroups: FooterGroup[] = [
 
 const methods = [MasterCard, Maestro, Visa, Paypal, Express, JCB];
 
-export function SiteFooter({ locale, tagline }: SiteFooterProps) {
+export function SiteFooter({ locale }: SiteFooterProps) {
   return (
     <Box component="footer" sx={{ bgcolor: "#1f1f1f", color: "black", mt: 8 }}>
       <Box sx={{ bgcolor: "#d7d4c8", px: { xs: 2, md: 8 }, py: { xs: 6, md: 7 } }}>
-        <Grid container spacing={12} alignItems="center">
+        <Grid container spacing={{ xs: 4, lg: 12 }} alignItems="center">
           <Grid size={{ xs: 12, md: 6 }}>
             <Typography sx={{ letterSpacing: "0.14em", textTransform: "uppercase", mb: 1.5, fontSize: 25 }}>
               {t.subscribe[locale]}
@@ -199,8 +198,8 @@ export function SiteFooter({ locale, tagline }: SiteFooterProps) {
           </Grid>
         </Grid>
 
-        <Typography sx={{ fontSize: 13, lineHeight: 1.65, textAlign: "center", mt: 6, color: "white" }}>
-          {tagline || "� MANITO TRADING LTD. 2008-2026"} | {t.copyright[locale]}
+        <Typography sx={{ fontSize: 13, lineHeight: 1.65, textAlign: "center", mt: 6, color: "white" }} variant="subtitle1">
+          © YAMOPAD TRADING LTD. 2008-2026 | {t.copyright[locale]}
         </Typography>
       </Box>
     </Box>
