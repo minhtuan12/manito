@@ -109,13 +109,14 @@ export function StorefrontProvider({ children }: { children: ReactNode }) {
         style: "currency",
         currency: "VND",
         maximumFractionDigits: 0,
-      }).format(amount * VND_PER_USD);
+      }).format(amount);
     }
 
     return new Intl.NumberFormat("en-US", {
       style: "currency",
       currency: "USD",
-    }).format(amount);
+      maximumFractionDigits: 2,
+    }).format(amount / VND_PER_USD);
   }, [currency]);
 
   const value = useMemo<StorefrontContextValue>(
