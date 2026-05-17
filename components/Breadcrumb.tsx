@@ -22,12 +22,12 @@ export function Breadcrumb({ items, mb = 2 }: BreadcrumbProps) {
             {item.href && !isLast ? (
               <Link
                 href={item.href}
-                style={{ color: "gray", textDecoration: "none", fontWeight: 400 }}
+                style={{ color: "gray", textDecoration: "none", fontWeight: 400, fontSize: 20, }}
               >
                 {item.label}
               </Link>
             ) : (
-              <Typography fontWeight={600}>{item.label}</Typography>
+              <Typography fontWeight={600} fontSize={20}>{item.label}</Typography>
             )}
             {!isLast ? <Typography color="text.secondary">/</Typography> : null}
           </Grid2>

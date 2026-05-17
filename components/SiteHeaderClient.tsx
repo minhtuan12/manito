@@ -2,7 +2,7 @@
 
 import { useState, useRef, useCallback, useEffect } from "react";
 import Link from "next/link";
-import { Search, ShoppingBag, Heart, UserRound, X, ChevronLeft, ChevronRight, Menu } from "lucide-react";
+import { Search, ShoppingBag, Heart, UserRound, X, ChevronLeft, ChevronRight, Menu as MenuIcon } from "lucide-react";
 import {
   AppBar,
   Toolbar,
@@ -19,6 +19,10 @@ import {
   Input,
   Checkbox,
   Theme,
+  Badge,
+  Select,
+  MenuItem,
+  Popover,
 } from "@mui/material";
 import type { Locale } from "@/types/domain";
 import type { ReturnTypeGetDictionary } from "@/lib/types-local";
@@ -26,7 +30,14 @@ import { LocaleSwitcher } from "@/components/LocaleSwitcher";
 import Image from "next/image";
 import MainLogo from "@/public/logo.svg";
 import { makeStyles } from "@mui/styles";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { CartDrawerContent } from "@/components/storefront/CartViews";
+import { useStorefront } from "@/components/storefront/StorefrontContext";
+import {
+  ACCOUNT_SECTIONS,
+  getAccountSectionHref,
+  getAccountSectionLabel,
+} from "@/lib/account";
 
 export type HeaderNavSubItem = {
   id: string;
@@ -75,12 +86,25 @@ export function SiteHeaderClient({
   const [canScrollRight, setCanScrollRight] = useState(false);
   const [hasScrollableOverflow, setHasScrollableOverflow] = useState(false);
   const leaveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const accountMenuCloseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const lastScrollYRef = useRef(0);
   const submenuRailRef = useRef<HTMLDivElement | null>(null);
   const theme = useTheme();
   const [openProfileDrawer, setOpenProfileDrawer] = useState(false);
   const [openNavDrawer, setOpenNavDrawer] = useState(false);
+  const [openCartDrawer, setOpenCartDrawer] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [hasCheckedSession, setHasCheckedSession] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
+  const { cartItems, currency, setCurrency } = useStorefront();
+  const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+  const [loginIdentifier, setLoginIdentifier] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
+  const [loginError, setLoginError] = useState("");
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
+  const [accountMenuAnchor, setAccountMenuAnchor] = useState<HTMLElement | null>(null);
+  const accountMenuOpen = Boolean(accountMenuAnchor);
   const isHomepage =
     pathname === "/" ||
     pathname === `/${locale}` ||
@@ -204,6 +228,86 @@ export function SiteHeaderClient({
     });
   }, []);
 
+  const handleDrawerLogin = async () => {
+    setIsLoggingIn(true);
+    setLoginError("");
+
+    const response = await fetch("/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ identifier: loginIdentifier, password: loginPassword }),
+    });
+
+    setIsLoggingIn(false);
+
+    if (!response.ok) {
+      setLoginError(locale === "en" ? "Invalid username or password." : "TÃªn Ä‘Äƒng nháº­p hoáº·c máº­t kháº©u khÃ´ng Ä‘Ãºng.");
+      return;
+    }
+
+    setIsAuthenticated(true);
+    setHasCheckedSession(true);
+    setOpenProfileDrawer(false);
+    router.refresh();
+    router.push(`/${locale}/my-account`);
+  };
+
+  const refreshSession = useCallback(async () => {
+    try {
+      const response = await fetch("/api/auth/session", { cache: "no-store" });
+      setIsAuthenticated(response.ok);
+      setHasCheckedSession(true);
+      return response.ok;
+    } catch {
+      setIsAuthenticated(false);
+      setHasCheckedSession(true);
+      return false;
+    }
+  }, []);
+
+  const keepAccountMenuOpen = useCallback(() => {
+    if (accountMenuCloseTimerRef.current) {
+      clearTimeout(accountMenuCloseTimerRef.current);
+      accountMenuCloseTimerRef.current = null;
+    }
+  }, []);
+
+  const closeAccountMenu = useCallback(() => {
+    if (accountMenuCloseTimerRef.current) {
+      clearTimeout(accountMenuCloseTimerRef.current);
+    }
+
+    accountMenuCloseTimerRef.current = setTimeout(() => {
+      setAccountMenuAnchor(null);
+    }, 140);
+  }, []);
+
+  const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
+    keepAccountMenuOpen();
+
+    if (hasCheckedSession && isAuthenticated) {
+      setAccountMenuAnchor(event.currentTarget);
+    }
+  };
+
+  const handlePopoverClose = () => {
+    closeAccountMenu();
+  };
+
+  const handleAccountClick = async (event: React.MouseEvent<HTMLElement>) => {
+    const anchor = event.currentTarget;
+    const authenticated = hasCheckedSession ? isAuthenticated : await refreshSession();
+
+    if (authenticated) {
+      setAccountMenuAnchor(anchor);
+      setOpenProfileDrawer(false);
+      return;
+    }
+
+    setAccountMenuAnchor(null);
+    setOpenProfileDrawer(true);
+  };
+
   useEffect(() => {
     if (!isHomepage) {
       setIsStickyOnScrollDown(false);
@@ -257,6 +361,18 @@ export function SiteHeaderClient({
     };
   }, [currentSubmenu, isOpen, updateSubmenuScrollState]);
 
+  useEffect(() => {
+    refreshSession().then(() => undefined);
+  }, [pathname, refreshSession]);
+
+  useEffect(() => {
+    return () => {
+      if (accountMenuCloseTimerRef.current) {
+        clearTimeout(accountMenuCloseTimerRef.current);
+      }
+    };
+  }, []);
+
   const useTransparentHeader = isHomepage && isAtTop && !headerHovered && !isOpen;
 
   return (
@@ -307,7 +423,7 @@ export function SiteHeaderClient({
               sx={{ minWidth: 40, p: 1 }}
               onClick={() => setOpenNavDrawer(true)}
             >
-              <Menu size={20} />
+              <MenuIcon size={20} />
             </Button>
             <Button
               component={Link}
@@ -391,86 +507,131 @@ export function SiteHeaderClient({
               label={dictionary.common.language}
             />
           </Box>
-          {[
-            {
-              icon: <UserRound size={18} />,
-              label: "account",
-            },
-            {
-              href: `/${locale}/search`,
-              icon: <Search size={18} />,
-              label: "search",
-            },
-            {
-              href: `/${locale}/wishlist`,
-              icon: <Heart size={18} />,
-              label: "wishlist",
-            },
-            {
-              href: `/${locale}/cart`,
-              icon: <ShoppingBag size={18} />,
-              label: "cart",
-            },
-          ]
-            .filter((item) =>
-              item.label === "account" ||
-              item.label === "cart" ||
-              (item.label !== "search" && item.label !== "wishlist"),
-            )
-            .map(({ href, icon, label }) =>
-            href ? (
-              <Button
-                key={label}
-                component={Link}
-                href={href}
-                color="inherit"
-                aria-label={label}
-                sx={{
-                  minWidth: 40,
-                  p: 1,
-                  display:
-                    label === "cart"
-                      ? "inline-flex"
-                      : { xs: "inline-flex", md: "inline-flex" },
-                }}
-              >
-                {icon}
-              </Button>
-            ) : (
-              <Button
-                key={label}
-                color="inherit"
-                aria-label={label}
-                sx={{ minWidth: 40, p: 1 }}
-                onClick={() => setOpenProfileDrawer(true)}
-              >
-                {icon}
-              </Button>
-            ),
-          )}
-          {[
-            {
-              href: `/${locale}/search`,
-              icon: <Search size={18} />,
-              label: "search",
-            },
-            {
-              href: `/${locale}/wishlist`,
-              icon: <Heart size={18} />,
-              label: "wishlist",
-            },
-          ].map(({ href, icon, label }) => (
-            <Button
-              key={label}
-              component={Link}
-              href={href}
-              color="inherit"
-              aria-label={label}
-              sx={{ minWidth: 40, p: 1, display: { xs: "none", md: "inline-flex" } }}
-            >
-              {icon}
-            </Button>
-          ))}
+          <Select
+            size="small"
+            value={currency}
+            onChange={(event) => setCurrency(event.target.value as "USD" | "VND")}
+            variant="standard"
+            disableUnderline
+            sx={{
+              display: { xs: "none", md: "block" },
+              color: "inherit",
+              fontSize: 13,
+              fontWeight: 800,
+              minWidth: 82,
+              "& .MuiSelect-icon": { color: "inherit" },
+            }}
+          >
+            <MenuItem value="USD">United States (USD $)</MenuItem>
+            <MenuItem value="VND">Vietnam (VND ₫)</MenuItem>
+          </Select>
+          <Button
+            color="inherit"
+            aria-label="account"
+            sx={{ minWidth: 40, p: 1 }}
+            onClick={handleAccountClick}
+            aria-owns={accountMenuOpen ? 'account-menu-popover' : undefined}
+            aria-haspopup="true"
+            onMouseEnter={handlePopoverOpen}
+            onMouseLeave={handlePopoverClose}
+          >
+            <UserRound size={18} />
+          </Button>
+          <Popover
+            id="account-menu-popover"
+            sx={{ pointerEvents: 'none' }}
+            open={accountMenuOpen}
+            anchorEl={accountMenuAnchor}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'right',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            onClose={() => {
+              keepAccountMenuOpen();
+              setAccountMenuAnchor(null);
+            }}
+            disableRestoreFocus
+            slotProps={{
+              paper: {
+                onMouseEnter: keepAccountMenuOpen,
+                onMouseLeave: closeAccountMenu,
+                sx: {
+                  mt: 1,
+                  width: 242,
+                  borderRadius: 0,
+                  boxShadow: "0 12px 28px rgba(0,0,0,0.08)",
+                  border: "1px solid rgba(0,0,0,0.05)",
+                  bgcolor: "#fff",
+                  py: 1.25,
+                  pointerEvents: "auto",
+                },
+              },
+            }}
+          >
+            <Box component="nav" aria-label="Account menu">
+              {ACCOUNT_SECTIONS.map((section) => (
+                <MenuItem
+                  key={section}
+                  component={Link}
+                  href={getAccountSectionHref(locale, section)}
+                  onClick={() => {
+                    keepAccountMenuOpen();
+                    setAccountMenuAnchor(null);
+                    if (section === "logout") {
+                      setIsAuthenticated(false);
+                    }
+                  }}
+                  sx={{
+                    color: "#6f7378",
+                    fontSize: 17,
+                    fontWeight: 400,
+                    minHeight: 38,
+                    px: 2.5,
+                    py: 0.85,
+                    fontFamily: "var(--font-optima), Arial, Helvetica, sans-serif",
+                    "&:hover": {
+                      bgcolor: "#f5f5f5",
+                      color: "#111",
+                    },
+                  }}
+                >
+                  {getAccountSectionLabel(locale, section)}
+                </MenuItem>
+              ))}
+            </Box>
+          </Popover>
+          <Button
+            component={Link}
+            href={`/${locale}/search`}
+            color="inherit"
+            aria-label="search"
+            sx={{ minWidth: 40, p: 1, display: { xs: "none", md: "inline-flex" } }}
+          >
+            <Search size={18} />
+          </Button>
+          <Button
+            component={Link}
+            href={`/${locale}/my-account/wishlist`}
+            color="inherit"
+            aria-label="wishlist"
+            sx={{ minWidth: 40, p: 1, display: { xs: "none", md: "inline-flex" } }}
+          >
+            <Heart size={18} />
+          </Button>
+          <Button
+            color="inherit"
+            aria-label="cart"
+            sx={{ minWidth: 40, p: 1 }}
+            onClick={() => setOpenCartDrawer(true)}
+          >
+            <Badge badgeContent={cartCount} color="default">
+              <ShoppingBag size={18} />
+            </Badge>
+          </Button>
         </Stack>
       </Toolbar>
 
@@ -717,15 +878,38 @@ export function SiteHeaderClient({
               <Typography variant="subtitle1">
                 {locale === "en" ? "Username or email address" : "Tên đăng nhập hoặc email"} <span style={{ color: "red" }}>*</span>
               </Typography>
-              <Input sx={{ border: "1px solid rgba(0,0,0,0.1)", paddingInline: 2, height: 42 }} />
+              <Input
+                value={loginIdentifier}
+                onChange={(event) => setLoginIdentifier(event.target.value)}
+                sx={{ border: "1px solid rgba(0,0,0,0.1)", paddingInline: 2, height: 42 }}
+              />
             </Box>
             <Box display={"flex"} gap={1} flexDirection={"column"} mb={2.5}>
               <Typography variant="subtitle1">
                 {locale === "en" ? "Password" : "Mật khẩu"} <span style={{ color: "red" }}>*</span>
               </Typography>
-              <Input sx={{ border: "1px solid rgba(0,0,0,0.1)", paddingInline: 2, height: 42 }} />
+              <Input
+                type="password"
+                value={loginPassword}
+                onChange={(event) => setLoginPassword(event.target.value)}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter") {
+                    handleDrawerLogin();
+                  }
+                }}
+                sx={{ border: "1px solid rgba(0,0,0,0.1)", paddingInline: 2, height: 42 }}
+              />
             </Box>
-            <Button sx={{ mb: 2.5, background: "#d7d4c8", color: "#272727", fontWeight: 400, width: "100%", height: 42 }}>
+            {loginError ? (
+              <Typography color="error" fontSize={14} mb={1.5}>
+                {loginError}
+              </Typography>
+            ) : null}
+            <Button
+              disabled={isLoggingIn}
+              onClick={handleDrawerLogin}
+              sx={{ mb: 2.5, background: "#d7d4c8", color: "#272727", fontWeight: 400, width: "100%", height: 42 }}
+            >
               <Typography variant="subtitle1" fontSize={12}>
                 {locale === "en" ? "LOG IN" : "ĐĂNG NHẬP"}
               </Typography>
@@ -758,6 +942,13 @@ export function SiteHeaderClient({
           </Grid2>
           <Divider sx={{ width: "100%" }} />
         </Box>
+      </Drawer>
+      <Drawer
+        anchor="right"
+        open={openCartDrawer}
+        onClose={() => setOpenCartDrawer(false)}
+      >
+        <CartDrawerContent locale={locale} onClose={() => setOpenCartDrawer(false)} />
       </Drawer>
     </AppBar >
   );

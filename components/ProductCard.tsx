@@ -18,7 +18,7 @@ export function ProductCard({ product, locale, dictionary }: ProductCardProps) {
   return (
     <Box sx={{ display: "grid", gap: 1.5 }}>
       <Box sx={{ position: "relative", aspectRatio: "3 / 4", overflow: "hidden" }}>
-        <Image src={product.primaryImage} alt={product.title[locale]} fill style={{ objectFit: "cover" }} />
+        <Image src={product.images?.[0]} alt={product.title[locale]} fill style={{ objectFit: "cover" }} />
       </Box>
       <Stack spacing={0.8}>
         <Typography variant="h6" sx={{ fontFamily: "Optima, serif" }}>

@@ -39,15 +39,15 @@ function FeaturedCard({
         flexDirection={"column"}
         gap={2}
         flex={1}
-        width={1 / 2}
-        maxWidth={1 / 2}
+        width={{ xs: '100%', lg: 1 / 2 }}
+        maxWidth={{ xs: '100%', lg: 1 / 2 }}
         alignItems={"center"}
         justifyContent={"center"}
-        px={9}
-        py={6}
+        px={{ xs: 4, md: 9 }}
+        py={{ xs: 2, md: 6 }}
         boxSizing={"border-box"}
       >
-        <Typography fontSize={22} color="#555656" mb={2.5}>
+        <Typography fontSize={{ xs: 30, md: 28 }} color="#555656" mb={2.5} display={{ xs: 'none', md: 'block' }}>
           {cat}
         </Typography>
         <Image
@@ -57,6 +57,9 @@ function FeaturedCard({
           height={731}
           style={{ width: "100%", height: "100%", marginBottom: 20 }}
         />
+        <Typography fontSize={{ xs: 30, md: 22 }} color="#555656" display={{ xs: 'block', md: 'none' }}>
+          {cat}
+        </Typography>
         <Link
           href={href}
           style={{
@@ -72,7 +75,7 @@ function FeaturedCard({
           {locale === "en" ? "VIEW ALL" : "XEM TẤT CẢ"}
         </Link>
       </Grid>
-      <Box flex={1} position="relative" minHeight={500}>
+      <Box flex={1} position="relative" minHeight={500} display={{ xs: 'none', md: 'block' }}>
         <Image
           src={mainImage}
           alt={cat}
@@ -97,8 +100,8 @@ export function FeaturedProducts({
         product.categoryPath.startsWith(`${category.path}/`),
       );
 
-      const mainImage = categoryProducts[0]?.primaryImage ?? category.banner;
-      const subImage = categoryProducts[1]?.primaryImage ?? category.coverImage;
+      const subImage = category.coverImage;
+      const mainImage = categoryProducts?.[0]?.images?.[0];
 
       return {
         id: category.id,

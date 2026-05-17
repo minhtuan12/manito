@@ -28,7 +28,7 @@ export default function Filter() {
 				onClick={() => setOpenFilter(!openFilter)}
 			>
 				<SlidersHorizontal size={16} />
-				<Typography fontWeight={600} fontSize={20}>{t('filter.common')}</Typography>
+				<Typography fontWeight={800} fontSize={26}>{t('filter.common')}</Typography>
 			</Grid2>
 			<Grid2
 				sx={{
@@ -45,38 +45,51 @@ export default function Filter() {
 				py={3.5}
 				px={3.5}
 				mt={3}
+				mb={{ xs: 4, xl: 0 }}
 				display={"flex"}
+				flexDirection={{ xs: 'column', md: 'row' }}
 				width={"100%"}
-				justifyContent={"space-between"}
+				height={'auto'}
+				justifyContent={"start"}
+				gap={4}
 			>
-				<Box display={"flex"} flexDirection={"column"} gap={2}>
+				<Box display={"flex"} flexDirection={"column"} gap={2} minWidth={1 / 3}>
 					<Typography
 						sx={{ textTransform: "uppercase" }}
-						fontWeight={600}
-						fontSize={16}
+						fontWeight={800}
+						fontSize={20}
 					>
 						{t("filter.sortBy")}
 					</Typography>
 					<Box display={"flex"} flexDirection={"column"} gap={1}>
 						{sortBy.map((s) => (
 							<Typography
-								fontSize={16}
+								fontSize={18}
 								key={s}
 								variant="subtitle1"
-								sx={{ textTransform: "capitalize" }}
+								sx={{ textTransform: "capitalize", cursor: 'pointer' }}
 							>
 								{t(`filter.${s}`)}
 							</Typography>
 						))}
 					</Box>
 				</Box>
-				<Box>
+				<Box display={"flex"} flexDirection={"column"} gap={2} minWidth={1 / 3}>
 					<Typography
 						sx={{ textTransform: "uppercase" }}
-						fontWeight={600}
-						fontSize={16}
+						fontWeight={800}
+						fontSize={20}
 					>
 						{t("filter.color")}
+					</Typography>
+				</Box>
+				<Box display={"flex"} flexDirection={"column"} gap={2} minWidth={1 / 3}>
+					<Typography
+						sx={{ textTransform: "uppercase" }}
+						fontWeight={800}
+						fontSize={20}
+					>
+						{t("filter.size")}
 					</Typography>
 				</Box>
 			</Grid2>

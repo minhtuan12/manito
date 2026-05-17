@@ -7,6 +7,11 @@ import {
   getDescendantCategorySlugs,
   enrichProductsWithCategoryPath,
 } from "@/lib/catalog";
+import {
+  filterProductsBySize,
+  getAvailableSizes,
+  sortProducts,
+} from "@/lib/product-filters";
 import type { Category, Product } from "@/types/domain";
 
 function slugify(input: string) {
@@ -105,6 +110,8 @@ export async function GET(request: Request) {
   const categorySlug = searchParams.get("categorySlug");
   const categoryPath = searchParams.get("categoryPath");
   const includeDescendants = searchParams.get("includeDescendants") !== "false";
+  const sort = searchParams.get("sort") ?? "newest";
+  const sizes = searchParams.getAll("size").flatMap((value) => value.split(",")).filter(Boolean);
 
   const categoryDocs = (await CategoryModel.find({ isDeleted: { $ne: true } }).lean()) as any[];
   const categories = categoryDocs.map(mapCategory);
@@ -127,9 +134,11 @@ export async function GET(request: Request) {
   }
 
   const items = (await ProductModel.find(query).sort({ createdAt: -1 }).lean()) as any[];
-  const mapped = enrichProductsWithCategoryPath(items.map(mapProduct), categories);
+  const scopedProducts = enrichProductsWithCategoryPath(items.map(mapProduct), categories);
+  const availableSizes = getAvailableSizes(scopedProducts);
+  const mapped = sortProducts(filterProductsBySize(scopedProducts, sizes), sort);
 
-  return NextResponse.json({ items: mapped, total: mapped.length });
+  return NextResponse.json({ items: mapped, total: mapped.length, filters: { sizes: availableSizes } });
 }
 
 export async function POST(request: Request) {

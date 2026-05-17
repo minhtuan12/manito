@@ -5,18 +5,18 @@ import Link from "next/link";
 import Image from "next/image";
 import { Box, Grid2 as Grid, Typography } from "@mui/material";
 import type { Locale } from "@/types/domain";
-import type { StorefrontCategory } from "@/lib/catalog";
+import type { StorefrontCategory, StorefrontProduct } from "@/lib/catalog";
 import type { ReturnTypeGetDictionary } from "@/lib/types-local";
 import { Heart } from "lucide-react";
 import CardItem from "./CardItem";
 
 type CategoryGridProps = {
   locale: Locale;
-  categories: StorefrontCategory[];
+  products: StorefrontProduct[];
   dictionary: ReturnTypeGetDictionary;
 };
 
-export function CategoryGrid({ locale, categories }: CategoryGridProps) {
+export function CategoryGrid({ locale, products }: CategoryGridProps) {
   const sliderRef = useRef<HTMLDivElement | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
@@ -53,7 +53,7 @@ export function CategoryGrid({ locale, categories }: CategoryGridProps) {
       const visible = Math.max(1, Math.round(el.clientWidth / width));
       const computedPages = Math.max(
         1,
-        Math.ceil(categories.length / visible),
+        Math.ceil(products.length / visible),
       );
       setPageCount(computedPages);
       const maxScroll = Math.max(0, el.scrollWidth - el.clientWidth);
@@ -89,7 +89,7 @@ export function CategoryGrid({ locale, categories }: CategoryGridProps) {
       el.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", recalculate);
     };
-  }, [categories.length, pageCount]);
+  }, [products.length, pageCount]);
 
   const handlePointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
     const el = sliderRef.current;
@@ -154,13 +154,14 @@ export function CategoryGrid({ locale, categories }: CategoryGridProps) {
         flexDirection="column"
         justifyContent="center"
         alignItems="center"
-        sx={{ py: 6, px: { xs: 2, md: 4, xl: 20 }, flexShrink: 0 }}
+        sx={{ pb: { xs: 3, md: 6 }, pt: { xs: 0, md: 6 }, px: { xs: 2, md: 4, xl: 20 }, flexShrink: 0 }}
       >
         <Typography
           mb={3}
           color="#555656"
           fontSize={30}
           lineHeight="40px"
+          textAlign='center'
         >
           {locale === "en"
             ? "SPRING/SUMMER 2026"
@@ -168,13 +169,14 @@ export function CategoryGrid({ locale, categories }: CategoryGridProps) {
         </Typography>
         <Typography
           mb={2}
-          fontSize={18}
+          fontSize={20}
           lineHeight="28px"
           color="#555656"
+          fontWeight={500}
         >
           {locale === "en" ? "New Arrivals" : "Các sản phẩm mới"}
         </Typography>
-        <Typography fontSize={16} lineHeight="26px" color="#555656">
+        <Typography fontSize={18} lineHeight="26px" color="#555656" fontWeight={500}>
           Midsummer Dreams, Silky Nights
         </Typography>
       </Grid>
@@ -183,7 +185,8 @@ export function CategoryGrid({ locale, categories }: CategoryGridProps) {
         flex={1}
         display="flex"
         flexDirection="column"
-        pr={{ xs: 2, md: 3 }}
+        pr={3}
+        pl={{ xs: 3, md: 0 }}
       >
         <Box
           ref={sliderRef}
@@ -204,9 +207,9 @@ export function CategoryGrid({ locale, categories }: CategoryGridProps) {
             touchAction: "pan-y",
           }}
         >
-          {categories.map((category) => (
+          {products.map((product) => (
             <Box
-              key={category.id}
+              key={product.id}
               data-category-card="true"
               sx={{
                 flex: {
@@ -219,9 +222,11 @@ export function CategoryGrid({ locale, categories }: CategoryGridProps) {
               }}
             >
               <CardItem
-                coverImage={category.coverImage}
-                href={`/${locale}/category/${category.path}`}
-                title={category.title[locale]}
+                coverImage={product.images?.[0]}
+                href={`/${locale}/products/${product.slug}`}
+                title={product.title[locale]}
+                wishlistProductSlug={product.slug}
+                isNew={true}
               />
             </Box>
           ))}

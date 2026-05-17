@@ -27,7 +27,7 @@ export default async function HomePage({ params }: HomePageProps) {
       <HeroSection locale={locale} />
       <CategoryGrid
         locale={locale}
-        categories={categories}
+        products={products}
         dictionary={dictionary}
       />
       <FeaturedProducts

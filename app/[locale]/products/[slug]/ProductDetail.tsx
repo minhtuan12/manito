@@ -17,6 +17,7 @@ import type { Dictionary } from "@/lib/dictionaries";
 import { useRef, useState } from "react";
 import { ChevronDown, ChevronUp, X } from "lucide-react";
 import { sanitizeRichTextHtml } from "@/lib/richText";
+import { useStorefront } from "@/components/storefront/StorefrontContext";
 
 type ProductInfoSectionKey =
   | "details"
@@ -99,11 +100,14 @@ function renderInfoContent(value: string, options?: { asBullets?: boolean }) {
 function Property({
   property,
   locale,
+  selectedValue,
+  onChange,
 }: {
   property: ProductProperty;
   locale: Locale;
+  selectedValue: string;
+  onChange: (slug: string, value: string) => void;
 }) {
-  const [selectedValue, setSelectedValue] = useState("");
   const { name, slug, values } = property;
   return (
     <>
@@ -129,7 +133,7 @@ function Property({
               background:
                 selectedValue === c ? "#d7d4c8" : "transparent",
             }}
-            onClick={() => setSelectedValue(c)}
+            onClick={() => onChange(slug, c)}
           >
             <Typography variant="subtitle1" fontSize={16}>
               {c}
@@ -144,7 +148,7 @@ function Property({
             gap={0.5}
             alignItems={"center"}
             onClick={() => {
-              setSelectedValue("");
+              onChange(slug, "");
             }}
           >
             <X size={14} />
@@ -169,9 +173,12 @@ export default function ProductDetail({
   categoryAncestors: StorefrontCategory[];
   dictionary: Dictionary;
 }) {
-  const [previewImage, setPreviewImage] = useState(product.primaryImage);
+  const [previewImage, setPreviewImage] = useState(product.images?.[0]);
   const [expandedSection, setExpandedSection] =
     useState<ProductInfoSectionKey | null>(null);
+  const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>({});
+  const [cartFeedback, setCartFeedback] = useState("");
+  const { addToCart, formatPrice } = useStorefront();
   const thumbnailListRef = useRef<HTMLDivElement | null>(null);
   const productDescriptionHtml = sanitizeRichTextHtml(
     product.description[locale],
@@ -268,6 +275,24 @@ export default function ProductDetail({
       content: renderInfoContent(product.giftPackaging?.[locale] ?? ""),
     },
   ];
+
+  const handlePropertyChange = (slug: string, value: string) => {
+    setSelectedOptions((current) => {
+      const next = { ...current };
+      if (value) {
+        next[slug] = value;
+      } else {
+        delete next[slug];
+      }
+      return next;
+    });
+  };
+
+  const handleAddToCart = () => {
+    addToCart(product, selectedOptions);
+    setCartFeedback(locale === "en" ? "Added to cart." : "ÄÃ£ thÃªm vÃ o giá» hÃ ng.");
+    window.setTimeout(() => setCartFeedback(""), 1800);
+  };
 
   return (
     <Grid sx={{ pb: 2, pt: 13, px: { xs: 4, xl: 20 }, background: "#f5f5f5" }}>
@@ -385,7 +410,7 @@ export default function ProductDetail({
               textAlign={"center"}
               fontSize={20}
             >
-              ${product.priceUsd}
+              {formatPrice(product.priceUsd)}
             </Typography>
             <Typography
               color="#7a7d81"
@@ -428,7 +453,13 @@ export default function ProductDetail({
 
             {/* Properties */}
             {product?.properties?.map((p) => (
-              <Property locale={locale} property={p} />
+              <Property
+                key={p.slug}
+                locale={locale}
+                property={p}
+                selectedValue={selectedOptions[p.slug] ?? ""}
+                onChange={handlePropertyChange}
+              />
             ))}
 
             {/* Actions */}
@@ -436,6 +467,7 @@ export default function ProductDetail({
               <Grid size={6}>
                 <Button
                   variant="contained"
+                  onClick={handleAddToCart}
                   sx={{
                     color: "#7A7D81",
                     width: "100%",
@@ -451,6 +483,7 @@ export default function ProductDetail({
               <Grid size={6}>
                 <Button
                   variant="contained"
+                  onClick={handleAddToCart}
                   sx={{
                     color: "#7A7D81",
                     width: "100%",
@@ -464,6 +497,11 @@ export default function ProductDetail({
                 </Button>
               </Grid>
             </Grid2>
+            {cartFeedback ? (
+              <Typography color="#7a7d81" fontSize={14} fontWeight={800}>
+                {cartFeedback}
+              </Typography>
+            ) : null}
 
             {/* Details */}
             {/* Material & Cares */}

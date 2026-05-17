@@ -7,6 +7,7 @@ import { Box, Stack, Typography } from "@mui/material";
 import type { StorefrontProduct } from "@/lib/catalog";
 import type { Dictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/types/domain";
+import { useStorefront } from "@/components/storefront/StorefrontContext";
 
 const DESKTOP_VISIBLE_ITEMS = 5;
 
@@ -20,6 +21,7 @@ export default function Recommendation({
 	recommendationProducts: StorefrontProduct[];
 }) {
 	const [activePage, setActivePage] = useState(0);
+	const { formatPrice } = useStorefront();
 
 	const visibleProducts = recommendationProducts.slice(0, 10);
 	const pages = useMemo(() => {
@@ -101,7 +103,7 @@ export default function Recommendation({
 											}}
 										>
 											<Image
-												src={item.primaryImage}
+												src={item.images?.[0]}
 												alt={item.title[locale]}
 												fill
 												style={{ objectFit: "cover" }}
@@ -130,7 +132,7 @@ export default function Recommendation({
 												fontSize={{ xs: 17, md: 16 }}
 												variant='subtitle1'
 											>
-												${item.priceUsd}
+												{formatPrice(item.priceUsd)}
 											</Typography>
 										</Stack>
 									</Box>

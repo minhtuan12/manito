@@ -1,6 +1,6 @@
-import { TextField, Typography, Stack } from "@mui/material";
 import { ensureLocale } from "@/lib/i18n";
-import { getDictionary } from "@/lib/dictionaries";
+import { getStorefrontProducts } from "@/lib/storefront-data";
+import { SearchPageClient } from "./SearchPageClient";
 
 type SearchPageProps = {
   params: Promise<{ locale: string }>;
@@ -9,15 +9,7 @@ type SearchPageProps = {
 export default async function SearchPage({ params }: SearchPageProps) {
   const { locale: localeParam } = await params;
   const locale = ensureLocale(localeParam);
-  const dictionary = getDictionary(locale);
+  const products = await getStorefrontProducts();
 
-  return (
-    <Stack spacing={2}>
-      <Typography variant="h3">{dictionary.common.search}</Typography>
-      <TextField
-        fullWidth
-        placeholder={locale === "en" ? "Search for products..." : "Tìm kiếm sản phẩm..."}
-      />
-    </Stack>
-  );
+  return <SearchPageClient locale={locale} products={products} />;
 }

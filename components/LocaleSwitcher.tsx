@@ -22,6 +22,7 @@ export function LocaleSwitcher({
         href={`/${target}${pathWithoutLocale}`}
         size="small"
         variant="text"
+        sx={{ color: 'gray', fontWeight: 600 }}
       >
         {target.toUpperCase()}
       </Button>

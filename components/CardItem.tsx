@@ -1,21 +1,53 @@
 'use client'
 
-import { Box } from "@mui/material";
-import { Heart } from "lucide-react";
+import { useState } from "react";
+import { Box, Button, Modal, Typography } from "@mui/material";
+import { Heart, X } from "lucide-react";
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
+import type { Locale } from "@/types/domain";
 
 export default function CardItem({
 	href,
 	coverImage,
 	title,
 	isNew,
+	wishlistProductSlug,
+	locale = "en",
 }: {
 	href: string;
 	coverImage: string | StaticImageData;
 	title: string;
-	isNew: boolean;
+	isNew?: boolean;
+	wishlistProductSlug?: string;
+	locale?: Locale;
 }) {
+	const [feedback, setFeedback] = useState("");
+	const [showLoginModal, setShowLoginModal] = useState(false);
+
+	const handleWishlist = async (event: React.MouseEvent<HTMLDivElement>) => {
+		event.stopPropagation();
+		event.preventDefault();
+
+		if (!wishlistProductSlug) {
+			return;
+		}
+
+		const response = await fetch("/api/wishlist", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ productSlug: wishlistProductSlug }),
+		});
+
+		if (response.status === 401) {
+			setShowLoginModal(true);
+			return;
+		}
+
+		setFeedback(response.ok ? "Saved to wishlist" : "Unable to save");
+		window.setTimeout(() => setFeedback(""), 1800);
+	};
+
 	return (
 		<Box
 			component={Link}
@@ -45,6 +77,7 @@ export default function CardItem({
 				"&:hover .favourite-box": {
 					opacity: 1,
 					transform: "translateX(0)",
+					pointerEvents: "auto",
 				},
 			}}
 			minHeight={488}
@@ -72,39 +105,124 @@ export default function CardItem({
 					sx={{
 						background: "#ffffff",
 						color: "black",
-						fontWeight: 600,
+						fontWeight: 900,
 						width: "fit-content",
 						px: 2,
 						py: 0.5,
-						fontSize: 12,
+						fontSize: 14,
 						boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
 					}}
 				>
 					NEW
 				</Box>
 			}
-			<Box
-				onClick={(e) => {
-					// TODO: Handle favorite action, e.g., toggle favorite state, show toast, etc.
-					e.stopPropagation();
-					e.preventDefault();
-				}}
-				className="favourite-box"
-				top={10}
-				right={10}
-				position="absolute"
-				sx={{
-					width: 52,
-					height: 52,
-					backgroundColor: "#fff",
-					display: "flex",
-					alignItems: "center",
-					justifyContent: "center",
-					boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.08)",
-				}}
-			>
-				<Heart size={22} />
-			</Box>
+			{wishlistProductSlug ? (
+				<>
+					<Box
+						onClick={handleWishlist}
+						className="favourite-box"
+						top={10}
+						right={10}
+						position="absolute"
+						sx={{
+							width: { xs: 0, md: 52 },
+							height: { xs: 0, md: 52 },
+							backgroundColor: "#fff",
+							display: "flex",
+							alignItems: "center",
+							justifyContent: "center",
+							boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.08)",
+							zIndex: 2,
+						}}
+					>
+						<Heart size={22} />
+					</Box>
+					<Box
+						onClick={handleWishlist}
+						top={10}
+						right={10}
+						position="absolute"
+						sx={{
+							width: { xs: 52, md: 0 },
+							height: { xs: 52, md: 0 },
+							backgroundColor: "#fff",
+							display: "flex",
+							alignItems: "center",
+							justifyContent: "center",
+							boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.08)",
+							borderRadius: '50%',
+							zIndex: 2,
+						}}
+					>
+						<Heart size={22} />
+					</Box>
+					{feedback ? (
+						<Box
+							position="absolute"
+							left={10}
+							bottom={10}
+							bgcolor="rgba(255,255,255,0.92)"
+							px={1.25}
+							py={0.75}
+						>
+							<Typography fontSize={12} fontWeight={700}>{feedback}</Typography>
+						</Box>
+					) : null}
+				</>
+			) : null}
+			<Modal open={showLoginModal} onClose={() => setShowLoginModal(false)}>
+				<Box
+					onClick={(event) => {
+						event.preventDefault();
+						event.stopPropagation();
+					}}
+					sx={{
+						position: "fixed",
+						inset: 0,
+						bgcolor: "rgba(0,0,0,0.68)",
+						display: "flex",
+						alignItems: "center",
+						justifyContent: "center",
+						zIndex: 20,
+					}}
+				>
+					<Button
+						aria-label="Close login prompt"
+						onClick={() => setShowLoginModal(false)}
+						sx={{ position: "fixed", top: 16, right: 16, color: "#fff", minWidth: 40 }}
+					>
+						<X size={30} />
+					</Button>
+					<Box
+						bgcolor="#fff"
+						width={{ xs: "calc(100vw - 32px)", sm: 450 }}
+						px={{ xs: 3, sm: 6 }}
+						py={5}
+						textAlign="center"
+					>
+						<Typography fontSize={29} fontWeight={800} mb={2}>
+							Please Log In
+						</Typography>
+						<Typography color="#777" fontSize={20} mb={3}>
+							You need to log in to view your wishlist.
+						</Typography>
+						<Button
+							component={Link}
+							href={`/${locale}/my-account/login`}
+							sx={{ bgcolor: "#333", color: "#fff", borderRadius: 0, width: "100%", height: 47, mb: 3, fontWeight: 800, "&:hover": { bgcolor: "#111" } }}
+						>
+							Log In
+						</Button>
+						<Typography color="#777" fontSize={17}>
+							Do not have an account yet?{" "}
+							<Link href={`/${locale}/my-account/register`} style={{ color: "#333", fontWeight: 800 }}>
+								Sign up
+							</Link>{" "}
+							now and enjoy 5% OFF for your first order.
+						</Typography>
+					</Box>
+				</Box>
+			</Modal>
 		</Box>
 	);
 }
