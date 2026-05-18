@@ -24,6 +24,18 @@ export default function CardItem({
 }) {
 	const [feedback, setFeedback] = useState("");
 	const [showLoginModal, setShowLoginModal] = useState(false);
+	const copy = {
+		saved: locale === "en" ? "Saved to wishlist" : "Đã lưu vào danh sách yêu thích",
+		error: locale === "en" ? "Unable to save" : "Không thể lưu",
+		newLabel: locale === "en" ? "NEW" : "MỚI",
+		close: locale === "en" ? "Close login prompt" : "Đóng thông báo đăng nhập",
+		loginTitle: locale === "en" ? "Please Log In" : "Vui Lòng Đăng Nhập",
+		loginDescription: locale === "en" ? "You need to log in to view your wishlist." : "Bạn cần đăng nhập để xem danh sách yêu thích.",
+		login: locale === "en" ? "Log In" : "Đăng Nhập",
+		signupLead: locale === "en" ? "Do not have an account yet?" : "Bạn chưa có tài khoản?",
+		signup: locale === "en" ? "Sign up" : "Đăng ký",
+		signupTail: locale === "en" ? "now and enjoy 5% OFF for your first order." : "ngay để nhận ưu đãi 5% cho đơn hàng đầu tiên.",
+	};
 
 	const handleWishlist = async (event: React.MouseEvent<HTMLDivElement>) => {
 		event.stopPropagation();
@@ -44,7 +56,7 @@ export default function CardItem({
 			return;
 		}
 
-		setFeedback(response.ok ? "Saved to wishlist" : "Unable to save");
+		setFeedback(response.ok ? copy.saved : copy.error);
 		window.setTimeout(() => setFeedback(""), 1800);
 	};
 
@@ -113,7 +125,7 @@ export default function CardItem({
 						boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
 					}}
 				>
-					NEW
+					{copy.newLabel}
 				</Box>
 			}
 			{wishlistProductSlug ? (
@@ -187,7 +199,7 @@ export default function CardItem({
 					}}
 				>
 					<Button
-						aria-label="Close login prompt"
+						aria-label={copy.close}
 						onClick={() => setShowLoginModal(false)}
 						sx={{ position: "fixed", top: 16, right: 16, color: "#fff", minWidth: 40 }}
 					>
@@ -201,24 +213,24 @@ export default function CardItem({
 						textAlign="center"
 					>
 						<Typography fontSize={29} fontWeight={800} mb={2}>
-							Please Log In
+							{copy.loginTitle}
 						</Typography>
 						<Typography color="#777" fontSize={20} mb={3}>
-							You need to log in to view your wishlist.
+							{copy.loginDescription}
 						</Typography>
 						<Button
 							component={Link}
 							href={`/${locale}/my-account/login`}
 							sx={{ bgcolor: "#333", color: "#fff", borderRadius: 0, width: "100%", height: 47, mb: 3, fontWeight: 800, "&:hover": { bgcolor: "#111" } }}
 						>
-							Log In
+							{copy.login}
 						</Button>
 						<Typography color="#777" fontSize={17}>
-							Do not have an account yet?{" "}
+							{copy.signupLead}{" "}
 							<Link href={`/${locale}/my-account/register`} style={{ color: "#333", fontWeight: 800 }}>
-								Sign up
+								{copy.signup}
 							</Link>{" "}
-							now and enjoy 5% OFF for your first order.
+							{copy.signupTail}
 						</Typography>
 					</Box>
 				</Box>

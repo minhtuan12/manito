@@ -290,7 +290,7 @@ export default function ProductDetail({
 
   const handleAddToCart = () => {
     addToCart(product, selectedOptions);
-    setCartFeedback(locale === "en" ? "Added to cart." : "ÄÃ£ thÃªm vÃ o giá» hÃ ng.");
+    setCartFeedback(locale === "en" ? "Added to cart" : "Đã thêm vào giỏ hàng");
     window.setTimeout(() => setCartFeedback(""), 1800);
   };
 

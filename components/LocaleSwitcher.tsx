@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { Languages } from "lucide-react";
-import { Button, Stack, Typography } from "@mui/material";
+import { Button, Stack } from "@mui/material";
 import type { Locale } from "@/types/domain";
 
 type LocaleSwitcherProps = {
@@ -22,7 +21,7 @@ export function LocaleSwitcher({
         href={`/${target}${pathWithoutLocale}`}
         size="small"
         variant="text"
-        sx={{ color: 'gray', fontWeight: 600 }}
+        sx={{ color: 'gray', fontWeight: 600, fontSize: 18 }}
       >
         {target.toUpperCase()}
       </Button>

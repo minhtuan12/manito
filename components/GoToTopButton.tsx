@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Fab, Zoom } from "@mui/material";
+import { Box, Fab, Zoom } from "@mui/material";
 import { ChevronUp } from "lucide-react";
 
 export function GoToTopButton() {
@@ -22,22 +22,41 @@ export function GoToTopButton() {
   };
 
   return (
-    <Zoom in={visible}>
-      <Fab
-        aria-label="Go to top"
-        onClick={handleClick}
-        size="medium"
-        sx={{
-          position: "fixed",
-          right: { xs: 14, md: 22 },
-          bottom: { xs: 16, md: 24 },
-          zIndex: 1400,
-          color: "black",
-          boxShadow: "0 10px 24px rgba(0, 0, 0, 0.28)",
-        }}
-      >
-        <ChevronUp size={20} />
-      </Fab>
-    </Zoom>
+    <>
+      <Zoom in={visible}>
+        <Fab
+          aria-label="Go to top"
+          onClick={handleClick}
+          size="medium"
+          sx={{
+            position: "fixed",
+            right: { xs: 14, md: 22 },
+            bottom: { xs: 16, md: 100 },
+            zIndex: 1400,
+            color: "black",
+          }}
+        >
+          <ChevronUp size={20} />
+        </Fab>
+      </Zoom>
+      <Box sx={{ '& .MuiFab-root': { borderRadius: '60px' } }}>
+        <Fab
+          aria-label="Go to top"
+          size="medium"
+          sx={{
+            position: "fixed",
+            right: { xs: 14, md: 22 },
+            bottom: { xs: 16, md: 24 },
+            zIndex: 1400,
+            color: "black",
+            fontSize: 30,
+            width: 72,
+            height: 60,
+          }}
+        >
+          Y
+        </Fab>
+      </Box>
+    </>
   );
 }

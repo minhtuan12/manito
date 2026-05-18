@@ -21,7 +21,7 @@ const discoverItems = [
       en: "Mulberry silk – a breathtaking aspiration to elevate sleep quality whilst leveraging the benefits of skin improvement and hair rejuvenation, which benefit is known as “the second skin of the human body”.",
       vi: "Lụa tơ tằm – một khát vọng tuyệt vời để nâng cao chất lượng giấc ngủ đồng thời tận dụng những lợi ích cải thiện làn da và phục hồi mái tóc, được biết đến như \"lớp da thứ hai của cơ thể con người\".",
     },
-    href: "/soft-light/",
+    href: "/soft-light",
     cta: { en: "Discover More", vi: "Khám Phá Thêm" },
   },
   {
@@ -35,7 +35,7 @@ const discoverItems = [
       en: "YAMOPAD is certified by OEKO – TEX STANDARD 100 and MADE IN GREEN. OEKO-TEX STANDARD 100 is one of the world’s best-known labels for textiles tested for harmful substances.",
       vi: "YAMOPAD đạt chứng nhận OEKO-TEX STANDARD 100 và MADE IN GREEN. OEKO-TEX STANDARD 100 là một trong những nhãn hiệu nổi tiếng nhất thế giới dành cho hàng dệt may được kiểm tra về các chất độc hại.",
     },
-    href: "/inside-yamopad/",
+    href: "/inside-yamopad",
     cta: { en: "Discover More", vi: "Khám Phá Thêm" },
   },
   {
@@ -49,7 +49,7 @@ const discoverItems = [
       en: "You can customize gifts exclusively for yourself or others through our personalization service, including bespoke monogramming.",
       vi: "Bạn có thể tùy chỉnh quà tặng dành riêng cho bản thân hoặc người khác thông qua dịch vụ cá nhân hóa của chúng tôi, bao gồm cả việc khắc tên viết tắt theo yêu cầu.",
     },
-    href: "/customize/",
+    href: "/customize",
     cta: { en: "Shop Personalization", vi: "Mua Dịch Vụ Cá Nhân" },
   },
 ] as const;
@@ -96,7 +96,7 @@ export function DiscoverMoreSection({ locale }: DiscoverMoreSectionProps) {
                 </Typography>
               </Box>
               <Link
-                href={item.href}
+                href={`/${locale}${item.href}`}
                 style={{
                   width: "fit-content",
                   color: "#555656",

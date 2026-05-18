@@ -2,6 +2,7 @@ import type { Locale } from "@/types/domain";
 import type { ReturnTypeGetDictionary } from "@/lib/types-local";
 import { getStorefrontCategoryTree } from "@/lib/storefront-data";
 import { SiteHeaderClient, type HeaderNavItem } from "@/components/SiteHeaderClient";
+import { aboutNavLinks } from "@/lib/about-content";
 
 type SiteHeaderProps = {
   locale: Locale;
@@ -27,6 +28,18 @@ export async function SiteHeader({
       image: child.coverImage,
     })),
   }));
+
+  navItems.push({
+    id: "about-yamopad",
+    label: locale === "en" ? "About Yamopad" : "Về Yamopad",
+    href: `/${locale}/inside-yamopad`,
+    submenu: aboutNavLinks.map((item) => ({
+      id: item.id,
+      heading: item.heading[locale],
+      href: `/${locale}${item.href}`,
+      image: item.image,
+    })),
+  });
 
   return (
     <SiteHeaderClient

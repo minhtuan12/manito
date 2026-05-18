@@ -159,7 +159,7 @@ export function SiteFooter({ locale }: SiteFooterProps) {
                   <Typography
                     key={item.label.en}
                     component={Link}
-                    href={item.href}
+                    href={`/${locale}${item.href}`}
                     sx={{
                       color: "#d7d8d9",
                       textDecoration: "none",

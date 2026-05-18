@@ -241,7 +241,7 @@ export function SiteHeaderClient({
     setIsLoggingIn(false);
 
     if (!response.ok) {
-      setLoginError(locale === "en" ? "Invalid username or password." : "TÃªn Ä‘Äƒng nháº­p hoáº·c máº­t kháº©u khÃ´ng Ä‘Ãºng.");
+      setLoginError(locale === "en" ? "Invalid username or password." : "Tải khoản hoặc mật khẩu không đúng.");
       return;
     }
 
@@ -386,23 +386,25 @@ export function SiteHeaderClient({
       }}
       sx={{
         backgroundColor: useTransparentHeader ? "transparent" : "#f5f5f5",
-        color: useTransparentHeader ? "white" : "#1a1a1a",
+        color: useTransparentHeader ? "white" : "#555656",
         transition: "background-color 0.25s ease, color 0.25s ease",
         boxShadow: useTransparentHeader ? "none" : "0 1px 0 0 rgba(0,0,0,0.08)",
-        top: isHomepage ? 0 : "auto",
+        top: "var(--promo-banner-offset, 0px)",
         left: isHomepage ? 0 : "auto",
         right: isHomepage ? 0 : "auto",
+        height: '104px',
       }}
     >
       <Toolbar
         sx={{
           justifyContent: "space-between",
-          minHeight: 104,
+          minHeight: '104px !important',
           px: { xs: 2, md: 4, xl: 20 },
           py: { xs: 2, md: 1 },
           display: "grid",
           gridTemplateColumns: { xs: "1fr auto 1fr", md: "auto 1fr auto" },
           alignItems: "center",
+          height: '100%',
         }}
       >
         <Stack
@@ -437,13 +439,8 @@ export function SiteHeaderClient({
           </Stack>
 
           <Box display={{ xs: "none", md: "block" }}>
-            <Link href={`/${locale}`}>
-              <Image
-                src={MainLogo}
-                alt={"Yamopad"}
-                priority
-                style={{ height: 80, width: 150 }}
-              />
+            <Link href={`/${locale}`} style={{ textDecoration: 'none', color: useTransparentHeader ? "white" : "#555656", }}>
+              <Typography fontSize={38} fontWeight={500}>YAMOPAD</Typography>
             </Link>
           </Box>
 
@@ -480,7 +477,7 @@ export function SiteHeaderClient({
                     textTransform: "none",
                   },
                 }}
-                style={{ textTransform: "none", fontSize: 18, fontWeight: 800 }}
+                style={{ textTransform: "none", fontSize: 18, fontWeight: 900 }}
               >
                 {item.label}
               </Button>
@@ -489,13 +486,8 @@ export function SiteHeaderClient({
         </Stack>
 
         <Box display={{ xs: "flex", md: "none" }} justifyContent="center">
-          <Link href={`/${locale}`}>
-            <Image
-              src={MainLogo}
-              alt={"Yamopad"}
-              priority
-              style={{ height: 80, width: 150 }}
-            />
+          <Link href={`/${locale}`} style={{ textDecoration: 'none', color: useTransparentHeader ? "white" : "#555656", }}>
+            <Typography fontSize={24} fontWeight={500}>YAMOPAD</Typography>
           </Link>
         </Box>
 
@@ -516,14 +508,15 @@ export function SiteHeaderClient({
             sx={{
               display: { xs: "none", md: "block" },
               color: "inherit",
-              fontSize: 13,
+              fontSize: 18,
               fontWeight: 800,
               minWidth: 82,
               "& .MuiSelect-icon": { color: "inherit" },
+              '& .MuiSelect-select': { paddingBlock: 0 }
             }}
           >
-            <MenuItem value="USD">United States (USD $)</MenuItem>
-            <MenuItem value="VND">Vietnam (VND ₫)</MenuItem>
+            <MenuItem value="USD" sx={{ fontWeight: 500 }}>United States <span style={{ fontSize: 14, marginLeft: 2 }}> (USD)</span></MenuItem>
+            <MenuItem value="VND" sx={{ fontWeight: 500 }}>Vietnam <span style={{ fontSize: 14, marginLeft: 2 }}> (VND)</span></MenuItem>
           </Select>
           <Button
             color="inherit"
@@ -535,7 +528,7 @@ export function SiteHeaderClient({
             onMouseEnter={handlePopoverOpen}
             onMouseLeave={handlePopoverClose}
           >
-            <UserRound size={18} />
+            <UserRound size={22} />
           </Button>
           <Popover
             id="account-menu-popover"
@@ -611,7 +604,7 @@ export function SiteHeaderClient({
             aria-label="search"
             sx={{ minWidth: 40, p: 1, display: { xs: "none", md: "inline-flex" } }}
           >
-            <Search size={18} />
+            <Search size={22} />
           </Button>
           <Button
             component={Link}
@@ -620,17 +613,18 @@ export function SiteHeaderClient({
             aria-label="wishlist"
             sx={{ minWidth: 40, p: 1, display: { xs: "none", md: "inline-flex" } }}
           >
-            <Heart size={18} />
+            <Heart size={22} />
           </Button>
           <Button
             color="inherit"
             aria-label="cart"
-            sx={{ minWidth: 40, p: 1 }}
+            sx={{ minWidth: 40, p: 1, position: 'relative' }}
             onClick={() => setOpenCartDrawer(true)}
           >
-            <Badge badgeContent={cartCount} color="default">
-              <ShoppingBag size={18} />
-            </Badge>
+            <ShoppingBag size={22} />
+            <Box top={2} right={2} position={'absolute'} display={'flex'} justifyContent={'center'} alignItems={'center'} sx={{ borderRadius: '50%', background: 'black', color: 'white', width: 16, height: 16 }}>
+              <Typography variant="subtitle1" fontSize={11}>{cartCount}</Typography>
+            </Box>
           </Button>
         </Stack>
       </Toolbar>
@@ -708,6 +702,7 @@ export function SiteHeaderClient({
               "&::-webkit-scrollbar": {
                 display: "none",
               },
+              justifyContent: 'center',
             }}
           >
             {currentSubmenu && currentSubmenu.map((col) => (

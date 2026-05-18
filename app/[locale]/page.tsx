@@ -8,6 +8,7 @@ import {
   getStorefrontCategories,
   getStorefrontProducts,
 } from "@/lib/storefront-data";
+import { Box } from "@mui/material";
 
 type HomePageProps = {
   params: Promise<{ locale: string }>;
@@ -23,7 +24,7 @@ export default async function HomePage({ params }: HomePageProps) {
   ]);
 
   return (
-    <>
+    <Box mt={-13}>
       <HeroSection locale={locale} />
       <CategoryGrid
         locale={locale}
@@ -37,6 +38,6 @@ export default async function HomePage({ params }: HomePageProps) {
         dictionary={dictionary}
       />
       <DiscoverMoreSection locale={locale} />
-    </>
+    </Box>
   );
 }

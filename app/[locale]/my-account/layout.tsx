@@ -18,19 +18,19 @@ export default async function ({ params, children }: RegisterPageProps) {
 	const locale = ensureLocale(localeParam);
 
 	return (
-		<Box sx={{ pt: 13, mx: "auto" }}>
+		<Box sx={{ mx: "auto" }}>
 			<Box position={'relative'} color={'white'}>
 				<Image src={Banner} style={{ width: '100%', height: 'auto' }} alt="Register banner" />
 				<Box position={'absolute'} sx={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
 					<Typography fontSize={44} mb={1.5}>{locale === 'en' ? 'My account' : "Tài khoản"}</Typography>
 					<Box display={'flex'} alignItems={'center'} gap={1} justifyContent={'center'}>
 						<Link href={'/'} style={{ textDecoration: 'none', color: "white" }}>
-							<Typography fontSize={11} variant="subtitle1" fontWeight={600}>
+							<Typography fontSize={11} fontWeight={600}>
 								{locale === 'en' ? 'HOME' : "TRANG CHỦ"}
 							</Typography>
 						</Link>
 						/
-						<Typography fontSize={11} variant="subtitle1" fontWeight={600}>
+						<Typography fontSize={11} fontWeight={600}>
 							{locale === 'en' ? 'MY ACCOUNT' : "TÀI KHOẢN"}
 						</Typography>
 					</Box>

@@ -24,7 +24,7 @@ type StorefrontContextValue = {
 };
 
 const StorefrontContext = createContext<StorefrontContextValue | null>(null);
-const STORAGE_KEY = "manito-storefront-state";
+const STORAGE_KEY = "yamopad-storefront-state";
 const VND_PER_USD = 26354;
 
 function loadStoredState() {

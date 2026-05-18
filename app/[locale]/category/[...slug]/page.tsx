@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 import { Box, Grid2 } from "@mui/material";
 import { ensureLocale } from "@/lib/i18n";
-import { SectionTitle } from "@/components/SectionTitle";
 import Image from "next/image";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import {
@@ -28,8 +27,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   return (
     <>
-      <SectionTitle title={category.title[locale]} subtitle={category.description[locale]} />
-      <Box position={'relative'} width={'100%'} minHeight={700} display={'flex'} justifyContent={'center'} alignItems={'center'}>
+      <Box position={'relative'} width={'100%'} minHeight={750} display={'flex'} justifyContent={'center'} alignItems={'center'}>
         <Image src={category.banner} fill style={{ position: 'absolute' }} alt={category.slug} />
       </Box>
       <Grid2 px={{ xs: 4, md: 10, xl: 22 }} pt={5}>

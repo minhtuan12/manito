@@ -29,20 +29,20 @@ export function SearchPageClient({
   }, [products, query]);
 
   return (
-    <Box bgcolor="#f5f5f5" minHeight="100vh" pt={{ xs: 18, md: 25 }} px={{ xs: 2, md: 10, xl: 40 }} pb={8}>
+    <Box bgcolor="#f5f5f5" minHeight="100vh" pt={{ xs: 18, md: 20 }} px={{ xs: 2, md: 10, xl: 24 }} pb={8}>
       <Box maxWidth={640} mx="auto" display="flex" alignItems="center" bgcolor="#fff" borderBottom="1px solid #111" px={1.5}>
         <InputBase
           value={query}
           onChange={(event) => setQuery(event.target.value)}
-          placeholder={locale === "en" ? "Search for products" : "TÃ¬m kiáº¿m sáº£n pháº©m"}
+          placeholder={locale === "en" ? "Search for products" : "Tìm kiếm sản phẩm"}
           sx={{ flex: 1, height: 40, fontSize: 14 }}
           autoFocus
         />
         <Search size={20} color="#5d6670" />
       </Box>
       <Box borderTop="1px solid #cfcfcf" mt={3} pt={4}>
-        <Typography fontSize={20} fontWeight={800} mb={2}>
-          Featured Products
+        <Typography fontSize={28} fontWeight={900} mb={2}>
+          {locale === "en" ? 'Featured Products' : "Sản phẩm nổi bật"}
         </Typography>
         <Grid2 container spacing={2}>
           {visibleProducts.map((product) => (
@@ -55,10 +55,10 @@ export function SearchPageClient({
                 wishlistProductSlug={product.slug}
                 locale={locale}
               />
-              <Typography mt={1.5} textAlign="center" color="#111" fontSize={15} fontWeight={800}>
+              <Typography mt={1.5} textAlign="center" color="#111" fontSize={19} fontWeight={900}>
                 {product.title[locale]}
               </Typography>
-              <Typography textAlign="center" color="#555" fontSize={15}>
+              <Typography textAlign="center" color="#555" fontSize={16} variant="subtitle1">
                 {formatPrice(product.priceUsd)}
               </Typography>
             </Grid2>
