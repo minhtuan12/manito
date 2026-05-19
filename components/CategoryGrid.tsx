@@ -9,6 +9,7 @@ import type { StorefrontCategory, StorefrontProduct } from "@/lib/catalog";
 import type { ReturnTypeGetDictionary } from "@/lib/types-local";
 import { Heart } from "lucide-react";
 import CardItem from "./CardItem";
+import { useStorefront } from "./storefront/StorefrontContext";
 
 type CategoryGridProps = {
   locale: Locale;
@@ -23,6 +24,7 @@ export function CategoryGrid({ locale, products }: CategoryGridProps) {
   const [startScrollLeft, setStartScrollLeft] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
   const [pageCount, setPageCount] = useState(1);
+  const { formatPrice } = useStorefront();
 
   const pages = useMemo(
     () => Array.from({ length: pageCount }, (_, index) => index),
@@ -190,10 +192,6 @@ export function CategoryGrid({ locale, products }: CategoryGridProps) {
       >
         <Box
           ref={sliderRef}
-          onPointerDown={handlePointerDown}
-          onPointerMove={handlePointerMove}
-          onPointerUp={handlePointerUp}
-          onPointerCancel={handlePointerUp}
           sx={{
             display: "flex",
             gap: 2,
@@ -227,9 +225,27 @@ export function CategoryGrid({ locale, products }: CategoryGridProps) {
                 title={product.title[locale]}
                 wishlistProductSlug={product.slug}
                 isNew={true}
-                hasName={true}
                 price={product.priceUsd}
               />
+              <Box mt={2}>
+                <Typography
+                  variant="h2"
+                  sx={{ fontSize: { xs: 26, md: 20 } }}
+                  textAlign={"center"}
+                  color="#7a7d81"
+                  fontWeight={800}
+                >
+                  {product.title[locale]}
+                </Typography>
+                <Typography
+                  variant="subtitle1"
+                  color="#7a7d81"
+                  textAlign={"center"}
+                  fontSize={20}
+                >
+                  {formatPrice(product.priceUsd as number)}
+                </Typography>
+              </Box>
             </Box>
           ))}
         </Box>
