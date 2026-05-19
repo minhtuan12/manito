@@ -399,7 +399,7 @@ export function SiteHeaderClient({
         sx={{
           justifyContent: "space-between",
           minHeight: '104px !important',
-          px: { xs: 2, md: 4, xl: 20 },
+          px: { xs: 2 },
           py: { xs: 2, md: 1 },
           display: "grid",
           gridTemplateColumns: { xs: "1fr auto 1fr", md: "auto 1fr auto" },
