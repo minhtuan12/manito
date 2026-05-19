@@ -27,7 +27,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   return (
     <>
-      <Box position={'relative'} width={'100%'} minHeight={750} display={'flex'} justifyContent={'center'} alignItems={'center'}>
+      <Box position={'relative'} width={'100%'} minHeight={{ xs: 200, md: 750 }} display={'flex'} justifyContent={'center'} alignItems={'center'}>
         <Image src={category.banner} fill style={{ position: 'absolute' }} alt={category.slug} />
       </Box>
       <Grid2 px={{ xs: 4, md: 10, xl: 22 }} pt={5}>

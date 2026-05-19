@@ -26,7 +26,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
         dictionary={dictionary}
         pathWithoutLocale=""
       />
-      <Box pt={13}>
+      <Box pt={{ xs: 10, md: 13 }}>
         {children}
       </Box>
       <SiteFooter locale={locale} />

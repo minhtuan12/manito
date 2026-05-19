@@ -34,7 +34,7 @@ export default async function InsideYamopadPage({ params }: PageProps) {
     },
     {
       image: b,
-      en: '2009: MANITO’s first flagship store in Canada officially opened at 1822 West 1st Avenue, Vancouver.',
+      en: '2009: YAMOPAD’s first flagship store in Canada officially opened at 1822 West 1st Avenue, Vancouver.',
       vi: '2009: Cửa hàng flagship đầu tiên của YAMOPAD tại Canada chính thức khai trương tại địa chỉ 1822 West 1st Avenue, Vancouver.'
     },
     {
@@ -81,7 +81,7 @@ export default async function InsideYamopadPage({ params }: PageProps) {
         vi: 'Lụa Nguyên Chất',
       },
       desc: {
-        en: 'Mulberry silk contains 18 amino acids that naturally calm and moisturize the skin. Its friction coefficient is among the lowest of all fibers. MANITO’s exclusive Soft Light fabric harnesses these qualities for a uniquely refined wearing experience.',
+        en: 'Mulberry silk contains 18 amino acids that naturally calm and moisturize the skin. Its friction coefficient is among the lowest of all fibers. YAMOPAD’s exclusive Soft Light fabric harnesses these qualities for a uniquely refined wearing experience.',
         vi: 'Lụa tằm chứa 18 axit amin giúp làm dịu và dưỡng ẩm da một cách tự nhiên. Hệ số ma sát của lụa thuộc hàng thấp nhất trong tất cả các loại sợi vải. Chất liệu Soft Light độc quyền của YAMOPAD khai thác tối đa những đặc tính này, mang đến trải nghiệm mặc tinh tế và khác biệt.',
       }
     },
@@ -147,7 +147,7 @@ export default async function InsideYamopadPage({ params }: PageProps) {
             </Typography>
             <Typography fontSize={18} color="#7a7d81" textAlign={'center'} fontWeight={600} mt={2}>
               {locale === "en"
-                ? "Conceived upon shimmering lakes, tranquil forests and snowcapped mountains – MANITO’s origin in Vancouver began with an intention to advocate for nature. Our founders, Mr Kenmuir and the Zhang Family, sought to continue a lineage of meticulous artistry working with mulberry silk and weaving it with sophisticated functional luxury."
+                ? "Conceived upon shimmering lakes, tranquil forests and snowcapped mountains – YAMOPAD’s origin in Vancouver began with an intention to advocate for nature. Our founders, Mr Kenmuir and the Zhang Family, sought to continue a lineage of meticulous artistry working with mulberry silk and weaving it with sophisticated functional luxury."
                 : "Được thai nghén trên những hồ nước lấp lánh, những khu rừng yên tĩnh và những ngọn núi phủ tuyết trắng – nguồn gốc của YAMOPAD tại Vancouver bắt đầu với ý định bảo vệ thiên nhiên. Những người sáng lập của chúng tôi, ông Kenmuir và gia đình Zhang, mong muốn tiếp tục truyền thống nghệ thuật tỉ mỉ trong việc sử dụng tơ tằm và dệt nên những sản phẩm sang trọng, tinh tế và tiện dụng."}
             </Typography>
           </Grid2>
@@ -182,7 +182,7 @@ export default async function InsideYamopadPage({ params }: PageProps) {
             </Typography>
             <Typography fontSize={18} color="#7a7d81" textAlign={'center'} fontWeight={600} mt={2}>
               {locale === "en"
-                ? "From planting mulberry trees and raising silkworms to establishing a silk reeling factory, the insistence on excellence is deeply rooted in the Zhang family legacy. Together in 2008, they developed a luxury home collection unrivalled in excellence for MANITO’s launch, lavishly fashioned with only mulberry silk – a breathtaking aspiration to elevate sleep quality whilst leveraging the benefits of skin improvement and hair rejuvenation."
+                ? "From planting mulberry trees and raising silkworms to establishing a silk reeling factory, the insistence on excellence is deeply rooted in the Zhang family legacy. Together in 2008, they developed a luxury home collection unrivalled in excellence for YAMOPAD’s launch, lavishly fashioned with only mulberry silk – a breathtaking aspiration to elevate sleep quality whilst leveraging the benefits of skin improvement and hair rejuvenation."
                 : "Từ việc trồng cây dâu tằm và nuôi tằm đến việc thành lập nhà máy kéo sợi tơ, sự kiên định hướng đến sự hoàn hảo đã ăn sâu vào di sản của gia đình họ Trương. Cùng nhau vào năm 2008, họ đã phát triển một bộ sưu tập đồ dùng gia đình cao cấp với chất lượng tuyệt hảo cho sự ra mắt của YAMOPAD, được chế tác xa hoa chỉ với tơ tằm dâu – một khát vọng ngoạn mục nhằm nâng cao chất lượng giấc ngủ đồng thời tận dụng những lợi ích cải thiện làn da và trẻ hóa mái tóc."}
             </Typography>
           </Grid2>

@@ -43,7 +43,7 @@ export default async function YamopadLoyaltyClubPage({ params }: PageProps) {
         {locale === 'en' ? 'Earn 1 point for every $1 you spend (*All calculations are based on USD)' : 'Tích điểm cho mỗi đô la bạn chi tiêu (*Tất cả các tính toán đều dựa trên đô la Mỹ)'}
       </Typography>
       <Typography mt={2} fontSize={18}>
-        {locale === 'en' ? 'Receive 5% off your first order at MANITO’s Choice' : 'Nhận ngay ưu đãi giảm 5% cho đơn hàng đầu tiên tại MANITO’s Choice'}
+        {locale === 'en' ? 'Receive 5% off your first order at YAMOPAD’s Choice' : 'Nhận ngay ưu đãi giảm 5% cho đơn hàng đầu tiên tại YAMOPAD’s Choice'}
       </Typography>
       <Button
         sx={{
@@ -70,22 +70,22 @@ export default async function YamopadLoyaltyClubPage({ params }: PageProps) {
       <Grid2 mt={8} container justifyContent={'center'} gap={14}>
         <Grid2 justifyContent={'center'} alignItems={'center'} container flexDirection={'column'}>
           <Image src={A} alt="a" width={0} height={0} style={{ width: 'auto', height: 'auto' }} />
-          <Typography color="black" mt={1} fontWeight={800} fontSize={18}>{locale === 'en' ? 'MANITO Loyalty Member' : 'Thành viên thân thiết của MANITO'}</Typography>
+          <Typography color="black" mt={1} fontWeight={800} fontSize={18}>{locale === 'en' ? 'YAMOPAD Loyalty Member' : 'Thành viên thân thiết của YAMOPAD'}</Typography>
           <Typography color="black" mt={1} fontWeight={600} fontSize={16}>{locale === 'en' ? 'Create an account' : 'Tạo tài khoản'}</Typography>
         </Grid2>
         <Grid2 justifyContent={'center'} alignItems={'center'} container flexDirection={'column'}>
           <Image src={B} alt="a" width={0} height={0} style={{ width: 'auto', height: 'auto' }} />
-          <Typography color="black" mt={1} fontWeight={800} fontSize={18}>{locale === 'en' ? 'MANITO Silver Member' : 'Thành viên Bạc của MANITO'}</Typography>
+          <Typography color="black" mt={1} fontWeight={800} fontSize={18}>{locale === 'en' ? 'YAMOPAD Silver Member' : 'Thành viên Bạc của YAMOPAD'}</Typography>
           <Typography color="black" mt={1} fontWeight={600} fontSize={16}>{locale === 'en' ? 'Gain over 300 points' : 'Đạt được hơn 300 điểm'}</Typography>
         </Grid2>
         <Grid2 justifyContent={'center'} alignItems={'center'} container flexDirection={'column'}>
           <Image src={C} alt="a" width={0} height={0} style={{ width: 'auto', height: 'auto' }} />
-          <Typography color="black" mt={1} fontWeight={800} fontSize={18}>{locale === 'en' ? 'MANITO Gold Member' : 'Thành viên Vàng của MANITO'}</Typography>
+          <Typography color="black" mt={1} fontWeight={800} fontSize={18}>{locale === 'en' ? 'YAMOPAD Gold Member' : 'Thành viên Vàng của YAMOPAD'}</Typography>
           <Typography color="black" mt={1} fontWeight={600} fontSize={16}>{locale === 'en' ? 'Gain over 650 points' : 'Đạt được hơn 650 điểm'}</Typography>
         </Grid2>
         <Grid2 justifyContent={'center'} alignItems={'center'} container flexDirection={'column'}>
           <Image src={D} alt="a" width={0} height={0} style={{ width: 'auto', height: 'auto' }} />
-          <Typography color="black" mt={1} fontWeight={800} fontSize={18}>{locale === 'en' ? 'MANITO Platinum Member' : 'Thành viên Bạch kim của MANITO'}</Typography>
+          <Typography color="black" mt={1} fontWeight={800} fontSize={18}>{locale === 'en' ? 'YAMOPAD Platinum Member' : 'Thành viên Bạch kim của YAMOPAD'}</Typography>
           <Typography color="black" mt={1} fontWeight={600} fontSize={16}>{locale === 'en' ? 'Gain over 2000 points' : 'Đạt được hơn 2000 điểm'}</Typography>
         </Grid2>
       </Grid2>
@@ -210,7 +210,7 @@ export default async function YamopadLoyaltyClubPage({ params }: PageProps) {
         >
           <Image
             src={E}
-            alt="MANITO Silk"
+            alt="YAMOPAD Silk"
             fill
             style={{ objectFit: "cover", objectPosition: "center top" }}
             sizes="(max-width: 768px) 100vw, 50vw"
@@ -235,7 +235,7 @@ export default async function YamopadLoyaltyClubPage({ params }: PageProps) {
         >
           <Image
             src={F}
-            alt="MANITO Silk"
+            alt="YAMOPAD Silk"
             fill
             style={{ objectFit: "cover", objectPosition: "center top" }}
             sizes="(max-width: 768px) 100vw, 50vw"
@@ -421,7 +421,7 @@ export default async function YamopadLoyaltyClubPage({ params }: PageProps) {
         >
           <Image
             src={J}
-            alt="MANITO Silk"
+            alt="YAMOPAD Silk"
             fill
             style={{ objectFit: "cover", objectPosition: "center top" }}
             sizes="(max-width: 768px) 100vw, 50vw"
@@ -446,7 +446,7 @@ export default async function YamopadLoyaltyClubPage({ params }: PageProps) {
         >
           <Image
             src={IF}
-            alt="MANITO Silk"
+            alt="YAMOPAD Silk"
             fill
             style={{ objectFit: "cover", objectPosition: "center top" }}
             sizes="(max-width: 768px) 100vw, 50vw"

@@ -92,6 +92,7 @@ export function SiteHeaderClient({
   const theme = useTheme();
   const [openProfileDrawer, setOpenProfileDrawer] = useState(false);
   const [openNavDrawer, setOpenNavDrawer] = useState(false);
+  const [mobileSubmenuParentId, setMobileSubmenuParentId] = useState<string | null>(null);
   const [openCartDrawer, setOpenCartDrawer] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [hasCheckedSession, setHasCheckedSession] = useState(false);
@@ -109,6 +110,17 @@ export function SiteHeaderClient({
     pathname === "/" ||
     pathname === `/${locale}` ||
     pathname === `/${locale}/`;
+  const mobileSubmenuParent =
+    mobileSubmenuParentId === null
+      ? null
+      : navItems.find((item) => item.id === mobileSubmenuParentId) ?? null;
+  const mobileMenuLabelStyle = {
+    color: "#5d6672",
+    fontSize: 18,
+    fontWeight: 700,
+    lineHeight: 1.1,
+    letterSpacing: "-0.01em",
+  };
 
   const toggleDrawer =
     (open: boolean) =>
@@ -136,7 +148,15 @@ export function SiteHeaderClient({
         }
 
         setOpenNavDrawer(open);
+        if (!open) {
+          setMobileSubmenuParentId(null);
+        }
       };
+
+  const closeNavDrawer = useCallback(() => {
+    setOpenNavDrawer(false);
+    setMobileSubmenuParentId(null);
+  }, []);
 
   const handleNavEnter = useCallback((key: string) => {
     if (leaveTimerRef.current) clearTimeout(leaveTimerRef.current);
@@ -392,13 +412,13 @@ export function SiteHeaderClient({
         top: "var(--promo-banner-offset, 0px)",
         left: isHomepage ? 0 : "auto",
         right: isHomepage ? 0 : "auto",
-        height: '104px',
+        height: { xs: 80, md: '104px' },
       }}
     >
       <Toolbar
         sx={{
           justifyContent: "space-between",
-          minHeight: '104px !important',
+          minHeight: { xs: '80px !important', md: '104px !important' },
           maxWidth: 1600,
           px: { xs: 2 },
           py: { xs: 2, md: 1 },
@@ -407,6 +427,7 @@ export function SiteHeaderClient({
           alignItems: "center",
           height: '100%',
           margin: 'auto',
+          gap: { xs: 7, md: 0 }
         }}
       >
         <Stack
@@ -787,8 +808,355 @@ export function SiteHeaderClient({
         anchor="left"
         open={openNavDrawer}
         onClose={toggleNavDrawer(false)}
+        PaperProps={{
+          sx: {
+            width: "100vw",
+            maxWidth: '100%',
+            backgroundColor: "#fff",
+          },
+        }}
       >
-        <Box sx={{ width: 320, color: "#000" }} role="presentation">
+        <Box
+          sx={{
+            width: "100%",
+            color: "#000",
+            display: "flex",
+            flexDirection: "column",
+            minHeight: "100%",
+          }}
+          role="presentation"
+        >
+          <Box
+            sx={{
+              px: 1.5,
+              height: 58,
+              display: "grid",
+              gridTemplateColumns: "1fr auto 1fr",
+              alignItems: "center",
+              borderBottom: "1px solid rgba(0,0,0,0.06)",
+            }}
+          >
+            <Stack direction="row" spacing={0.25} alignItems="center" justifyContent="flex-start">
+              <Button
+                color="inherit"
+                aria-label="Close menu"
+                onClick={closeNavDrawer}
+                sx={{ minWidth: 40, p: 1, color: "#5f6670" }}
+              >
+                <X size={20} />
+              </Button>
+              <Button
+                component={Link}
+                href={`/${locale}/search`}
+                color="inherit"
+                aria-label={dictionary.common.search}
+                onClick={closeNavDrawer}
+                sx={{ minWidth: 40, p: 1, color: "#5f6670" }}
+              >
+                <Search size={18} />
+              </Button>
+            </Stack>
+
+            <Box display="flex" justifyContent="center">
+              <Link href={`/${locale}`} style={{ textDecoration: "none", color: "#6b7077" }}>
+                <Typography
+                  fontSize={24}
+                  fontWeight={500}
+                  letterSpacing="0.12em"
+                  sx={{ fontFamily: "var(--font-cormorant), var(--font-optima), serif" }}
+                >
+                  YAMOPAD
+                </Typography>
+              </Link>
+            </Box>
+
+            <Stack direction="row" spacing={0.25} alignItems="center" justifyContent="flex-end">
+              <Button
+                color="inherit"
+                aria-label="account"
+                onClick={(event) => {
+                  closeNavDrawer();
+                  void handleAccountClick(event);
+                }}
+                sx={{ minWidth: 40, p: 1, color: "#5f6670" }}
+              >
+                <UserRound size={18} />
+              </Button>
+              <Button
+                color="inherit"
+                aria-label="cart"
+                onClick={() => {
+                  closeNavDrawer();
+                  setOpenCartDrawer(true);
+                }}
+                sx={{ minWidth: 40, p: 1, color: "#5f6670", position: "relative" }}
+              >
+                <ShoppingBag size={18} />
+                <Box
+                  top={6}
+                  right={4}
+                  position="absolute"
+                  display="flex"
+                  justifyContent="center"
+                  alignItems="center"
+                  sx={{
+                    borderRadius: "50%",
+                    background: "#111",
+                    color: "#fff",
+                    width: 15,
+                    height: 15,
+                  }}
+                >
+                  <Typography variant="subtitle1" fontSize={10}>
+                    {cartCount}
+                  </Typography>
+                </Box>
+              </Button>
+            </Stack>
+          </Box>
+
+          {mobileSubmenuParent && <Box
+            sx={{
+              minHeight: 48,
+              px: 2,
+              display: "grid",
+              gridTemplateColumns: mobileSubmenuParent ? "40px 1fr 40px" : "1fr",
+              alignItems: "center",
+              backgroundColor: "#f4f4f2",
+              borderBottom: "1px solid rgba(0,0,0,0.06)",
+            }}
+          >
+            <>
+              <Button
+                color="inherit"
+                aria-label="Back"
+                onClick={() => setMobileSubmenuParentId(null)}
+                sx={{ minWidth: 40, p: 0.5, justifySelf: "start", color: "#1f2430" }}
+              >
+                <ChevronLeft size={18} />
+              </Button>
+              <Typography
+                sx={{
+                  ...mobileMenuLabelStyle,
+                  textAlign: "center",
+                  color: "#1d1f22",
+                }}
+              >
+                {mobileSubmenuParent.label}
+              </Typography>
+              <Box />
+            </>
+          </Box>
+          }
+
+          <Box sx={{ flex: 1, overflowY: "auto" }}>
+            {mobileSubmenuParent ? (
+              <Box>
+                <Box
+                  component={Link}
+                  href={mobileSubmenuParent.href}
+                  onClick={closeNavDrawer}
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    minHeight: 46,
+                    px: 2.5,
+                    textDecoration: "none",
+                    borderBottom: "1px solid rgba(0,0,0,0.05)",
+                  }}
+                >
+                  <Typography sx={mobileMenuLabelStyle}>
+                    {dictionary.common.viewAll}
+                  </Typography>
+                </Box>
+                {mobileSubmenuParent.submenu.map((subitem) => (
+                  <Box
+                    key={subitem.id}
+                    component={Link}
+                    href={subitem.href}
+                    onClick={closeNavDrawer}
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      minHeight: 46,
+                      px: 2.5,
+                      textDecoration: "none",
+                      borderBottom: "1px solid rgba(0,0,0,0.05)",
+                    }}
+                  >
+                    <Typography sx={mobileMenuLabelStyle}>{subitem.heading}</Typography>
+                  </Box>
+                ))}
+              </Box>
+            ) : (
+              <Box>
+                {navItems.map((item) => {
+                  const hasChildren = item.submenu.length > 0;
+
+                  return (
+                    <Box
+                      key={item.id}
+                      component={hasChildren ? "button" : Link}
+                      href={hasChildren ? undefined : item.href}
+                      onClick={
+                        hasChildren
+                          ? () => setMobileSubmenuParentId(item.id)
+                          : closeNavDrawer
+                      }
+                      sx={{
+                        width: "100%",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        minHeight: 46,
+                        px: 2.5,
+                        textAlign: "left",
+                        textDecoration: "none",
+                        border: 0,
+                        background: "transparent",
+                        borderBottom: "1px solid rgba(0,0,0,0.05)",
+                        cursor: "pointer",
+                      }}
+                    >
+                      <Typography sx={mobileMenuLabelStyle}>{item.label}</Typography>
+                      {hasChildren ? <ChevronRight size={18} color="#5f6670" /> : <Box sx={{ width: 18 }} />}
+                    </Box>
+                  );
+                })}
+                <Box mt={5}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      minHeight: 46,
+                      px: 2.5,
+                      borderBottom: "1px solid rgba(0,0,0,0.05)",
+                      bgcolor: 'rgba(0,0,0,0.05)',
+                      textAlign: 'center',
+                      fontWeight: 800,
+                    }}
+                  >
+                    <Typography sx={{ ...mobileMenuLabelStyle, fontWeight: 900, color: 'black' }}>
+                      {locale === 'en' ? 'Languages' : 'Ngôn ngữ'}
+                    </Typography>
+                  </Box>
+                  <Button
+                    component={Link}
+                    href={`/vi`}
+                    size="small"
+                    variant="text"
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      minHeight: 46,
+                      px: 2.5,
+                      borderBottom: "1px solid rgba(0,0,0,0.05)",
+                      justifyContent: 'start',
+                      textTransform: 'none',
+                    }}
+                  >
+                    <Typography sx={mobileMenuLabelStyle}>
+                      Tiếng Việt
+                    </Typography>
+                  </Button>
+                  <Button
+                    component={Link}
+                    href={`/en`}
+                    size="small"
+                    variant="text"
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      minHeight: 46,
+                      px: 2.5,
+                      borderBottom: "1px solid rgba(0,0,0,0.05)",
+                      justifyContent: 'start',
+                      textTransform: 'none',
+                    }}
+                  >
+                    <Typography sx={mobileMenuLabelStyle}>
+                      English
+                    </Typography>
+                  </Button>
+                </Box>
+                <Box>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      minHeight: 46,
+                      px: 2.5,
+                      borderBottom: "1px solid rgba(0,0,0,0.05)",
+                      bgcolor: 'rgba(0,0,0,0.05)',
+                      fontWeight: 800,
+                    }}
+                  >
+                    <Typography sx={{ ...mobileMenuLabelStyle, fontWeight: 900, color: 'black' }}>
+                      {locale === 'en' ? 'Unit Price' : 'Đơn vị tiền'}
+                    </Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      minHeight: 46,
+                      px: 2.5,
+                      borderBottom: "1px solid rgba(0,0,0,0.05)",
+                    }}
+                    onClick={() => {
+                      setCurrency("USD");
+                      setOpenNavDrawer(false);
+                    }}
+                  >
+                    <Typography sx={mobileMenuLabelStyle}>
+                      United States (USD $)
+                    </Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      minHeight: 46,
+                      px: 2.5,
+                      borderBottom: "1px solid rgba(0,0,0,0.05)",
+                    }}
+                    onClick={() => {
+                      setCurrency("VND");
+                      setOpenNavDrawer(false);
+                    }}
+                  >
+                    <Typography sx={mobileMenuLabelStyle}>
+                      Vietnam (VND)
+                    </Typography>
+                  </Box>
+                </Box>
+              </Box>
+            )}
+          </Box>
+        </Box>
+      </Drawer>
+      <Drawer
+        anchor="left"
+        open={false}
+        onClose={toggleNavDrawer(false)}
+        PaperProps={{
+          sx: {
+            width: "100vw",
+            maxWidth: 410,
+            backgroundColor: "#fff",
+          },
+        }}
+      >
+        <Box
+          sx={{
+            width: "100%",
+            color: "#000",
+            display: "flex",
+            flexDirection: "column",
+            minHeight: "100%",
+          }}
+          role="presentation"
+        >
           <Grid2 display={"flex"} justifyContent={"space-between"} alignItems={"center"} py={3} px={2}>
             <Typography fontWeight={600} fontSize={21} color="#000000">
               {locale === "en" ? "Menu" : "Danh Mục"}
@@ -802,11 +1170,6 @@ export function SiteHeaderClient({
           </Grid2>
           <Divider sx={{ width: "100%" }} />
           <Stack px={2.5} py={3} spacing={2}>
-            <LocaleSwitcher
-              locale={locale}
-              pathWithoutLocale={pathWithoutLocale}
-              label={dictionary.common.language}
-            />
             {navItems.map((item) => (
               <Box key={item.id}>
                 <Typography

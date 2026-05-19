@@ -24,7 +24,7 @@ export default async function HomePage({ params }: HomePageProps) {
   ]);
 
   return (
-    <Box mt={-13}>
+    <Box mt={{ xs: -10, md: -13 }}>
       <HeroSection locale={locale} />
       <CategoryGrid
         locale={locale}

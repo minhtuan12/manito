@@ -108,7 +108,7 @@ export default async function SplendidSilkMomentsPage({ params }: PageProps) {
         vi: "YAMOPAD × CREED",
       },
       desc: {
-        en: "YAMOPAD with CREED brings the MBTI fragrance workshop to MANITO’s boutique, starting a silk journey.",
+        en: "YAMOPAD with CREED brings the MBTI fragrance workshop to YAMOPAD’s boutique, starting a silk journey.",
         vi: "YAMOPAD hợp tác với CREED mang đến buổi hội thảo về nước hoa MBTI tại cửa hàng YAMOPAD, khởi đầu một hành trình khám phá hương thơm lụa.",
       },
     },
