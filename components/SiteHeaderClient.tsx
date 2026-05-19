@@ -399,12 +399,14 @@ export function SiteHeaderClient({
         sx={{
           justifyContent: "space-between",
           minHeight: '104px !important',
+          maxWidth: 1600,
           px: { xs: 2 },
           py: { xs: 2, md: 1 },
           display: "grid",
           gridTemplateColumns: { xs: "1fr auto 1fr", md: "auto 1fr auto" },
           alignItems: "center",
           height: '100%',
+          margin: 'auto',
         }}
       >
         <Stack
