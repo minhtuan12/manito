@@ -227,6 +227,8 @@ export function CategoryGrid({ locale, products }: CategoryGridProps) {
                 title={product.title[locale]}
                 wishlistProductSlug={product.slug}
                 isNew={true}
+                hasName={true}
+                price={product.priceUsd}
               />
             </Box>
           ))}

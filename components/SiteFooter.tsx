@@ -108,11 +108,11 @@ export function SiteFooter({ locale }: SiteFooterProps) {
       <Box sx={{ bgcolor: "#d7d4c8", px: { xs: 2, md: 8 }, py: { xs: 6, md: 7 } }}>
         <Grid container spacing={{ xs: 4, lg: 12 }} alignItems="center">
           <Grid size={{ xs: 12, md: 6 }}>
-            <Typography sx={{ letterSpacing: "0.14em", textTransform: "uppercase", mb: 1.5, fontSize: 25 }}>
+            <Typography fontWeight={600} sx={{ letterSpacing: "0.14em", textTransform: "uppercase", mb: 1.5, fontSize: 25 }}>
               {t.subscribe[locale]}
             </Typography>
-            <Typography sx={{ fontSize: 16, mb: 1 }}>{t.sale[locale]}</Typography>
-            <Typography sx={{ fontSize: 14, opacity: 0.88 }}>{t.desc[locale]}</Typography>
+            <Typography fontWeight={600} sx={{ fontSize: 16, mb: 1 }}>{t.sale[locale]}</Typography>
+            <Typography fontWeight={600} sx={{ fontSize: 16 }}>{t.desc[locale]}</Typography>
           </Grid>
 
           <Grid size={{ xs: 12, md: 6 }}>
@@ -125,7 +125,7 @@ export function SiteFooter({ locale }: SiteFooterProps) {
                   color: "#333",
                   px: 2,
                   py: 1.15,
-                  fontSize: 14,
+                  fontSize: 18,
                 }}
               />
               <Button
@@ -137,14 +137,14 @@ export function SiteFooter({ locale }: SiteFooterProps) {
                   py: 1.2,
                   minWidth: { xs: "100%", sm: "auto" },
                   "&:hover": { bgcolor: "#6a6456" },
-                  fontSize: 18,
-                  fontWeight: 600,
+                  fontSize: 20,
+                  fontWeight: 900,
                 }}
               >
                 {t.subscribeBtn[locale]}
               </Button>
             </Stack>
-            <Typography sx={{ mt: 1.25, fontSize: 12, opacity: 0.8 }}>{t.policy[locale]}</Typography>
+            <Typography fontWeight={600} sx={{ mt: 1.25, fontSize: 14 }}>{t.policy[locale]}</Typography>
           </Grid>
         </Grid>
       </Box>

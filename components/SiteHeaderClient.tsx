@@ -419,15 +419,16 @@ export function SiteHeaderClient({
         sx={{
           justifyContent: "space-between",
           minHeight: { xs: '80px !important', md: '104px !important' },
-          maxWidth: 1600,
-          px: { xs: 2 },
+          maxWidth: {xs: 1600, lg: 'unset'},
+          px: { xs: 2, md: 8 },
           py: { xs: 2, md: 1 },
           display: "grid",
           gridTemplateColumns: { xs: "1fr auto 1fr", md: "auto 1fr auto" },
           alignItems: "center",
           height: '100%',
           margin: 'auto',
-          gap: { xs: 7, md: 0 }
+          gap: { xs: 2, md: 7, lg: 10, xl: 0 },
+          width: { xs: 'calc(100vw - 20px)', lg: 'unset' },
         }}
       >
         <Stack
@@ -498,9 +499,10 @@ export function SiteHeaderClient({
                     backgroundColor: "currentColor",
                     transition: "transform 0.2s ease",
                     textTransform: "none",
+                    textAlign: 'center',
                   },
                 }}
-                style={{ textTransform: "none", fontSize: 18, fontWeight: 900 }}
+                style={{ textAlign: 'center', textTransform: "none", fontSize: 18, fontWeight: 900 }}
               >
                 {item.label}
               </Button>
@@ -510,7 +512,7 @@ export function SiteHeaderClient({
 
         <Box display={{ xs: "flex", md: "none" }} justifyContent="center">
           <Link href={`/${locale}`} style={{ textDecoration: 'none', color: useTransparentHeader ? "white" : "#555656", }}>
-            <Typography fontSize={24} fontWeight={500}>YAMOPAD</Typography>
+            <Typography fontSize={{ xs: 20, md: 24 }} fontWeight={500}>YAMOPAD</Typography>
           </Link>
         </Box>
 

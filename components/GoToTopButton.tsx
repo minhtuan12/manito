@@ -31,7 +31,7 @@ export function GoToTopButton() {
           sx={{
             position: "fixed",
             right: { xs: 14, md: 22 },
-            bottom: { xs: 16, md: 100 },
+            bottom: { xs: 90, md: 100 },
             zIndex: 1400,
             color: "black",
           }}

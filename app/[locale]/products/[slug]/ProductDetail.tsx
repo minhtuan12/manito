@@ -113,7 +113,7 @@ function Property({
     <>
       <Typography color="black" variant="subtitle1" fontSize={16}>
         {/* TODO: add locale in admin for properties */}
-        {name.toUpperCase()}:
+        {slug === 'kich-co' ? (locale === 'en' ? "SIZE" : "KÍCH CỠ") : name.toUpperCase()}:
       </Typography>
       <Grid2 container spacing={2}>
         {values.map((c, index) => (
@@ -295,7 +295,7 @@ export default function ProductDetail({
   };
 
   return (
-    <Grid sx={{ pb: 2, pt: 13, px: { xs: 4, xl: 20 }, background: "#f5f5f5" }}>
+    <Grid sx={{ pb: 2, px: { xs: 4, xl: 20 }, background: "#f5f5f5" }}>
       <Box my={5}>
         <Breadcrumb
           items={[
