@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
   Alert,
@@ -17,7 +16,6 @@ import {
 import type { Locale } from "@/types/domain";
 
 export function LoginForm({ locale }: { locale: Locale }) {
-  const router = useRouter();
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -62,8 +60,7 @@ export function LoginForm({ locale }: { locale: Locale }) {
       return;
     }
 
-    router.push(`/${locale}/my-account`);
-    router.refresh();
+    window.location.assign(`/${locale}/my-account`);
   };
 
   return (

@@ -9,6 +9,16 @@ const scrypt = promisify(scryptCallback);
 export const SESSION_COOKIE_NAME = "yamopad_session";
 const SESSION_DURATION_MS = 1000 * 60 * 60 * 24 * 14;
 
+export function getSessionCookieOptions(expires: Date) {
+  return {
+    httpOnly: true,
+    sameSite: "lax" as const,
+    secure: process.env.NODE_ENV === "production",
+    expires,
+    path: "/",
+  };
+}
+
 export async function hashPassword(password: string) {
   const salt = randomBytes(16).toString("hex");
   const derived = (await scrypt(password, salt, 64)) as Buffer;
@@ -44,15 +54,9 @@ export async function createUserSession(userId: string) {
   });
 
   const cookieStore = await cookies();
-  cookieStore.set(SESSION_COOKIE_NAME, token, {
-    httpOnly: true,
-    sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
-    expires: sessionExpiresAt,
-    path: "/",
-  });
+  cookieStore.set(SESSION_COOKIE_NAME, token, getSessionCookieOptions(sessionExpiresAt));
 
-  return token;
+  return { token, sessionExpiresAt };
 }
 
 export async function clearUserSession(token?: string | null) {
@@ -68,13 +72,7 @@ export async function clearUserSession(token?: string | null) {
     );
   }
 
-  cookieStore.set(SESSION_COOKIE_NAME, "", {
-    httpOnly: true,
-    sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
-    expires: new Date(0),
-    path: "/",
-  });
+  cookieStore.set(SESSION_COOKIE_NAME, "", getSessionCookieOptions(new Date(0)));
 }
 
 export async function getAuthenticatedUser() {

@@ -268,8 +268,7 @@ export function SiteHeaderClient({
     setIsAuthenticated(true);
     setHasCheckedSession(true);
     setOpenProfileDrawer(false);
-    router.refresh();
-    router.push(`/${locale}/my-account`);
+    window.location.assign(`/${locale}/my-account`);
   };
 
   const refreshSession = useCallback(async () => {

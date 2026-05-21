@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
   Alert,
@@ -18,7 +17,6 @@ import {
 import type { Locale } from "@/types/domain";
 
 export function RegisterForm({ locale }: { locale: Locale }) {
-  const router = useRouter();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
@@ -115,8 +113,7 @@ export function RegisterForm({ locale }: { locale: Locale }) {
       return;
     }
 
-    router.push(`/${locale}/my-account`);
-    router.refresh();
+    window.location.assign(`/${locale}/my-account`);
   };
 
   return (
