@@ -3,6 +3,7 @@ import { promisify } from "util";
 import { cookies } from "next/headers";
 import UserModel from "@/models/user";
 import { connectToDatabase } from "@/lib/mongoose";
+import { resolveSessionCookieDomain } from "@/lib/session-cookie";
 
 const scrypt = promisify(scryptCallback);
 
@@ -10,11 +11,15 @@ export const SESSION_COOKIE_NAME = "yamopad_session";
 const SESSION_DURATION_MS = 1000 * 60 * 60 * 24 * 14;
 
 export function getSessionCookieOptions(expires: Date) {
+  const domain = resolveSessionCookieDomain();
+
   return {
     httpOnly: true,
     sameSite: "lax" as const,
     secure: process.env.NODE_ENV === "production",
     expires,
+    maxAge: Math.max(0, Math.floor((expires.getTime() - Date.now()) / 1000)),
+    ...(domain ? { domain } : {}),
     path: "/",
   };
 }
