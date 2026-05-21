@@ -6,14 +6,6 @@ export async function POST() {
   return NextResponse.json({ success: true });
 }
 
-export async function GET(request: Request) {
-  await clearUserSession();
-  const url = new URL(request.url);
-  const redirectTo = url.searchParams.get("redirect") ?? "/";
-  return new NextResponse(null, {
-    status: 302,
-    headers: {
-      Location: redirectTo,
-    },
-  });
+export async function GET() {
+  return NextResponse.json({ message: "Method not allowed" }, { status: 405 });
 }

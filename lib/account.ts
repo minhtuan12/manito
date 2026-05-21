@@ -19,8 +19,9 @@ export const ACCOUNT_SECTIONS = [
 ] as const;
 
 export type AccountSection = (typeof ACCOUNT_SECTIONS)[number];
+export type AccountNavigableSection = Exclude<AccountSection, "logout">;
 
-const accountSectionPath: Record<AccountSection, string> = {
+const accountSectionPath: Record<AccountNavigableSection, string> = {
   dashboard: "",
   orders: "/orders",
   addresses: "/addresses",
@@ -28,14 +29,9 @@ const accountSectionPath: Record<AccountSection, string> = {
   "account-details": "/account-details",
   "points-and-rewards": "/points-and-rewards",
   wishlist: "/wishlist",
-  logout: "/logout",
 };
 
-export function getAccountSectionHref(locale: Locale, section: AccountSection) {
-  if (section === "logout") {
-    return `/api/auth/logout?redirect=/${locale}/my-account/login`;
-  }
-
+export function getAccountSectionHref(locale: Locale, section: AccountNavigableSection) {
   return `/${locale}/my-account${accountSectionPath[section]}`;
 }
 

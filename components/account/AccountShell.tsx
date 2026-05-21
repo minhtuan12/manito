@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Box, Grid2 as Grid, Stack, Typography } from "@mui/material";
+import { AccountLogoutButton } from "@/components/account/AccountLogoutButton";
 import type { Locale } from "@/types/domain";
 import {
   getAccountSectionHref,
@@ -37,8 +38,35 @@ export function AccountShell({
           <Box borderTop="1px solid #d6d1c8" pt={2}>
             <Stack spacing={1}>
               {sidebarSections.map((section) => {
-                const href = getAccountSectionHref(locale, section);
                 const isActive = section === activeSection;
+
+                if (section === "logout") {
+                  return (
+                    <AccountLogoutButton
+                      key={section}
+                      locale={locale}
+                      sx={{
+                        textDecoration: "none",
+                        color: "#111111",
+                        px: 1.75,
+                        py: 1.2,
+                        fontSize: 16,
+                        fontWeight: 600,
+                        width: "100%",
+                        display: "block",
+                        backgroundColor: "transparent",
+                        transition: "background-color 180ms ease",
+                        "&:hover": {
+                          backgroundColor: "#f0ede6",
+                        },
+                      }}
+                    >
+                      {getAccountSectionLabel(locale, section)}
+                    </AccountLogoutButton>
+                  );
+                }
+
+                const href = getAccountSectionHref(locale, section);
 
                 return (
                   <Box

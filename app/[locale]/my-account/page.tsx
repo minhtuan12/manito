@@ -13,6 +13,7 @@ import {
 import { Box, Grid2 as Grid, Stack, Typography } from "@mui/material";
 import { ensureLocale } from "@/lib/i18n";
 import { AccountShell } from "@/components/account/AccountShell";
+import { AccountLogoutButton } from "@/components/account/AccountLogoutButton";
 import { getAuthenticatedUser } from "@/lib/auth";
 import {
   getAccountSectionHref,
@@ -57,9 +58,9 @@ export default async function AccountDashboardPage({ params }: AccountDashboardP
         <Typography fontSize={20}>
           {dictionary.account.dashboard.greetingPrefix} <strong>{user.displayName}</strong> ({dictionary.account.dashboard.notYou}{" "}
           <strong>{user.displayName}</strong>?{" "}
-          <Link href={getAccountSectionHref(locale, "logout")} style={{ color: "inherit" }}>
+          <AccountLogoutButton locale={locale} sx={{ color: "inherit", textDecoration: "underline" }}>
             {dictionary.account.logout}
-          </Link>
+          </AccountLogoutButton>
           )
         </Typography>
         <Typography fontSize={18} lineHeight={1.8}>
@@ -68,6 +69,34 @@ export default async function AccountDashboardPage({ params }: AccountDashboardP
         <Grid container spacing={2.25}>
           {dashboardCards.map((card) => {
             const Icon = card.icon;
+
+            if (card.key === "logout") {
+              return (
+                <Grid key={card.key} size={{ xs: 12, md: 4 }}>
+                  <AccountLogoutButton
+                    locale={locale}
+                    sx={{
+                      textDecoration: "none",
+                      color: "#111111",
+                      border: "1px solid #e4dfd6",
+                      minHeight: 148,
+                      width: "100%",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      gap: 1.5,
+                      backgroundColor: "#fff",
+                    }}
+                  >
+                    <LogOut size={44} color="#bdbab4" strokeWidth={1.4} />
+                    <Typography fontSize={18} fontWeight={700}>
+                      {getAccountSectionLabel(locale, card.key)}
+                    </Typography>
+                  </AccountLogoutButton>
+                </Grid>
+              );
+            }
 
             return (
               <Grid key={card.key} size={{ xs: 12, md: 4 }}>

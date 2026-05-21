@@ -27,6 +27,7 @@ import {
 import type { Locale } from "@/types/domain";
 import type { ReturnTypeGetDictionary } from "@/lib/types-local";
 import { LocaleSwitcher } from "@/components/LocaleSwitcher";
+import { AccountLogoutButton } from "@/components/account/AccountLogoutButton";
 import Image from "next/image";
 import MainLogo from "@/public/logo.svg";
 import { makeStyles } from "@mui/styles";
@@ -327,6 +328,14 @@ export function SiteHeaderClient({
     setOpenProfileDrawer(true);
   };
 
+  const handleLoggedOut = () => {
+    keepAccountMenuOpen();
+    setAccountMenuAnchor(null);
+    setOpenProfileDrawer(false);
+    setIsAuthenticated(false);
+    setHasCheckedSession(true);
+  };
+
   useEffect(() => {
     if (!isHomepage) {
       setIsStickyOnScrollDown(false);
@@ -591,33 +600,56 @@ export function SiteHeaderClient({
           >
             <Box component="nav" aria-label="Account menu">
               {ACCOUNT_SECTIONS.map((section) => (
-                <MenuItem
-                  key={section}
-                  component={Link}
-                  href={getAccountSectionHref(locale, section)}
-                  onClick={() => {
-                    keepAccountMenuOpen();
-                    setAccountMenuAnchor(null);
-                    if (section === "logout") {
-                      setIsAuthenticated(false);
-                    }
-                  }}
-                  sx={{
-                    color: "#6f7378",
-                    fontSize: 17,
-                    fontWeight: 400,
-                    minHeight: 38,
-                    px: 2.5,
-                    py: 0.85,
-                    fontFamily: "var(--font-optima), Arial, Helvetica, sans-serif",
-                    "&:hover": {
-                      bgcolor: "#f5f5f5",
-                      color: "#111",
-                    },
-                  }}
-                >
-                  {getAccountSectionLabel(locale, section)}
-                </MenuItem>
+                section === "logout" ? (
+                  <AccountLogoutButton
+                    key={section}
+                    locale={locale}
+                    onLoggedOut={handleLoggedOut}
+                    sx={{
+                      color: "#6f7378",
+                      fontSize: 17,
+                      fontWeight: 400,
+                      minHeight: 38,
+                      width: "100%",
+                      px: 2.5,
+                      py: 0.85,
+                      fontFamily: "var(--font-optima), Arial, Helvetica, sans-serif",
+                      display: "flex",
+                      alignItems: "center",
+                      "&:hover": {
+                        bgcolor: "#f5f5f5",
+                        color: "#111",
+                      },
+                    }}
+                  >
+                    {getAccountSectionLabel(locale, section)}
+                  </AccountLogoutButton>
+                ) : (
+                  <MenuItem
+                    key={section}
+                    component={Link}
+                    href={getAccountSectionHref(locale, section)}
+                    onClick={() => {
+                      keepAccountMenuOpen();
+                      setAccountMenuAnchor(null);
+                    }}
+                    sx={{
+                      color: "#6f7378",
+                      fontSize: 17,
+                      fontWeight: 400,
+                      minHeight: 38,
+                      px: 2.5,
+                      py: 0.85,
+                      fontFamily: "var(--font-optima), Arial, Helvetica, sans-serif",
+                      "&:hover": {
+                        bgcolor: "#f5f5f5",
+                        color: "#111",
+                      },
+                    }}
+                  >
+                    {getAccountSectionLabel(locale, section)}
+                  </MenuItem>
+                )
               ))}
             </Box>
           </Popover>
